@@ -103,3 +103,71 @@ export interface ActivityInfo {
 	 */
 	title: string;
 }
+
+export interface CatalogueData {
+	code: number;
+	msg: string;
+	data: {
+		results: {
+			records: {
+				id: number;
+				name: string;
+				sort: null;
+				content: CatalogueDataContent;
+				entryId: number;
+				invalid: boolean;
+			}[];
+			total: number;
+			size: number;
+			current: number;
+			orders: any[];
+			optimizeCountSql: boolean;
+			searchCount: boolean;
+			maxLimit: null;
+			countId: null;
+			pages: number;
+		};
+		itemStyle: string;
+		background: {
+			contentBgUrl: string;
+			mainBgUrl: string;
+		};
+		checkStatus: null;
+		status: null;
+		catalogPageVersion: string;
+		catalogPageVersionOnline: string;
+		tagTree: any;
+		fid: null;
+		sid: null;
+	};
+}
+
+interface CatalogueDataContent {
+	activityDateRange: string[];
+	cornerMark: boolean;
+	updateAt: number;
+	showRedDot: boolean;
+	type: string;
+	title: string;
+	relateTagIds: any[];
+	cornerMarkUrl: string;
+	showLeftTopIcon: boolean;
+	showTeaserIconNum: number;
+	teaserDateRange: string[];
+	customBgUrl: string;
+	optionalTitle: string;
+	linkUrl: string;
+	id: string;
+	titleMore: string;
+	level: string;
+	showVideoBtn: boolean;
+	multipleFigureTitleType: number;
+	tags: null[];
+	showActivityDate: boolean;
+	contentUrl: string;
+	linkId: string;
+	redDotDateRange: string[];
+	name: string;
+	linkType: number;
+	imageList: any[];
+}

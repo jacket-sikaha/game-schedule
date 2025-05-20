@@ -1,5 +1,5 @@
-import { Env } from '@/worker';
-import { KuroWikiGameData } from './DataType';
+import { Env } from '@/index';
+import { CatalogueData, KuroWikiGameData } from './DataType';
 
 // wuthering-waves
 const MC_TARGET_TITLE = '版本活动';
@@ -21,16 +21,16 @@ export const getWutheringWavesEvent = async (env: Env) => {
 		return [];
 	}
 	const catalogueId = target.more.linkConfig.catalogueId;
+	const imgMap = new Map<number, string>();
 	if (catalogueId) {
-		const res = await fetch(`${env.VITE_KURO_WIKI_CATALOGUE_API}?catalogueId=${catalogueId}`, {
+		const { data } = (await fetch(`${env.VITE_KURO_WIKI_CATALOGUE_API}?catalogueId=${catalogueId}&page=1&limit=1000`, {
 			method: 'POST',
-			body: JSON.stringify({
-				catalogueId,
-				page: 1,
-				limit: 100,
-			}),
+			headers: { Wiki_type: MC_Wiki_type, 'Content-Type': 'application/x-www-form-urlencoded' },
+		}).then((res) => res.json())) as CatalogueData;
+		data.results.records.forEach((item) => {
+			imgMap.set(item.entryId, item.content.contentUrl);
 		});
-		console.log('res:', res);
+		console.log('res:', data);
 	}
 	return target?.content
 		.filter(({ countDown }) => !!countDown)
@@ -42,7 +42,7 @@ export const getWutheringWavesEvent = async (env: Env) => {
 				contentUrl: banner,
 			} = item;
 			const [start_time, end_time] = countDown!.dateRange;
-			return { id: entryId, title, start_time, end_time, banner, linkUrl };
+			return { id: entryId, title, start_time, end_time, banner: imgMap.get(+(entryId ?? 0)) ?? banner, linkUrl };
 		});
 };
 
