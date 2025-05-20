@@ -1,27 +1,7 @@
-import {
-	AutoRouter,
-	cors,
-	error, // creates error Responses
-	json, // creates JSON Responses
-	Router,
-	RouterType, // the Router itself
-	withParams, // middleware to extract params into the Request itself
-} from 'itty-router';
+import { cors, RouterType, AutoRouter, error, StatusError } from 'itty-router';
 import { getAKEventWithDetailTime } from './Arknights/util';
 import { getFGOEventWithDetailTime, getImgBanner } from './fgo/util';
 import { getWutheringWavesEvent, getPunishingEvent } from './kuro-game/util';
-
-export interface Env {
-	VITE_PCR_API: string;
-	VITE_GENSHIN_API: string;
-	VITE_STARRAIL_API: string;
-	VITE_FGOEventList_API: string;
-	VITE_AKEventList_API: string;
-	VITE_AKEventDetail_API: string;
-	VITE_KURO_WIKI_GAME_API: string;
-	VITE_KURO_WIKI_CATALOGUE_API: string;
-	router?: RouterType;
-}
 
 // create the CORS pair
 const { preflight, corsify } = cors({
@@ -38,7 +18,7 @@ const { preflight, corsify } = cors({
 	// },
 });
 
-const buildRouter = (env: Env): RouterType => {
+export const buildRouter = (env: Env): RouterType => {
 	console.log('env:', env);
 	const router = AutoRouter({
 		before: [preflight], // <-- put preflight upstream
@@ -47,67 +27,68 @@ const buildRouter = (env: Env): RouterType => {
 
 	router
 		// GET todos - just return some data!
-		.get('/todos', (_, env) => env.VITE_PCR_API)
+		.get('/todos', (_) => env.VITE_PCR_API)
 
-		.get('/pcr', async (_, env) => await fetch(env.VITE_PCR_API))
+		.get('/pcr', async (_) => await fetch(env.VITE_PCR_API))
 
-		.get('/genshin', async (_, env) => {
+		.get('/genshin', async (_) => {
 			try {
 				const response = await fetch(env.VITE_GENSHIN_API);
 				const genshin: any = await response.json();
 				return genshin.data?.list.find((item: { type_id: number }) => item.type_id === 1);
 			} catch (error: any) {
-				return error(500, error.message);
+				throw new StatusError(500, error.message);
 			}
 		})
 
-		.get('/starrail', async (_, env) => {
+		.get('/starrail', async (_) => {
 			try {
 				const response = await fetch(env.VITE_STARRAIL_API);
 				const starrail: any = await response.json();
 				return starrail.data?.list.find((item: { type_id: number }) => item.type_id === 4);
 			} catch (error: any) {
-				return error(500, error.message);
+				throw new StatusError(500, error.message);
 			}
 		})
 
-		.get('/fgo', async (_, env) => {
+		.get('/fgo', async (_) => {
 			try {
 				const data = await getFGOEventWithDetailTime(env.VITE_FGOEventList_API);
 				return { code: 200, data };
 			} catch (error: any) {
-				return error(500, error.message);
+				throw new StatusError(500, error.message);
 			}
 		})
 
-		.get('/ak', async (_, env) => {
+		.get('/ak', async (_) => {
 			try {
 				const data = await getAKEventWithDetailTime(env.VITE_AKEventList_API, env.VITE_AKEventDetail_API);
 				return { code: 200, data };
 			} catch (error: any) {
-				return error(500, error.message);
+				throw new StatusError(500, error.message);
 			}
 		})
 
-		.get('/mc', async (_, env: Env) => {
+		.get('/mc', async (_) => {
 			try {
 				const data = await getWutheringWavesEvent(env);
 				return { code: 200, data };
 			} catch (error: any) {
-				return error(500, error.message);
+				console.log('error:', error);
+				throw new StatusError(500, error.message);
 			}
 		})
 
-		.get('/pns', async (_, env) => {
+		.get('/pns', async (_) => {
 			try {
 				const data = await getPunishingEvent(env.VITE_KURO_WIKI_GAME_API);
 				return { code: 200, data };
 			} catch (error: any) {
-				return error(500, error.message);
+				throw new StatusError(500, error.message);
 			}
 		})
 
-		.get('/imgfromhtml', async (_, env) => {
+		.get('/imgfromhtml', async (_) => {
 			try {
 				const data = getImgBanner(`<p class="p">
 			<img src="//i0.hdslb.com/bfs/game/e0dece0d867b9dd83e9030d289a6ddae1a9590f7.png" alt="" />
@@ -130,7 +111,7 @@ const buildRouter = (env: Env): RouterType => {
 		  `);
 				return { code: 200, data };
 			} catch (error: any) {
-				return error(500, error.message);
+				throw new StatusError(500, error.message);
 			}
 		})
 
@@ -142,14 +123,3 @@ const buildRouter = (env: Env): RouterType => {
 
 	return router;
 };
-export default {
-	async fetch(request: Request, env: Env): Promise<Response> {
-		// return new Response('Hello World!');
-		console.log('game-events-calendar-backend is running...');
-		if (env.router === undefined) {
-			env.router = buildRouter(env);
-		}
-
-		return env.router.fetch(request);
-	},
-} satisfies ExportedHandler<Env>;

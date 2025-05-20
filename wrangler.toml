@@ -1,5 +1,5 @@
 name = "gebackend"                # 对应你账号worker里的部署的项目名称
-main = "src/worker.ts"
+main = "src/index.ts"
 compatibility_date = "2023-07-17"
 send_metrics = true
 
