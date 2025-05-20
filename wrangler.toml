@@ -17,6 +17,7 @@ VITE_FGOEventList_API = "https://api.biligame.com/news/list.action?gameExtension
 VITE_AKEventList_API = "https://ak-webview.hypergryph.com/api/game/bulletinList?target=IOS"
 VITE_AKEventDetail_API = "https://ak-webview.hypergryph.com/api/game/bulletin"
 VITE_KURO_WIKI_GAME_API = "https://api.kurobbs.com/wiki/core/homepage/getPage"
+VITE_KURO_WIKI_CATALOGUE_API = "https://api.kurobbs.com/wiki/core/catalogue/item/getPage"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.

@@ -13,6 +13,9 @@ export declare interface KuroWikiGameData {
 				id: string;
 				title: string;
 				content: ActivityInfo[];
+				more: {
+					linkConfig: ActivityInfo['linkConfig'];
+				};
 			}[];
 			announcement: any[];
 		};
@@ -35,6 +38,8 @@ export interface ActivityInfo {
 		 * 入口 ID
 		 */
 		entryId?: string;
+
+		catalogueId?: number;
 	};
 	contentUrl: string;
 	contentUrlRealName: string;

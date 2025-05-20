@@ -1,3 +1,4 @@
+import { Env } from '@/worker';
 import { KuroWikiGameData } from './DataType';
 
 // wuthering-waves
@@ -6,9 +7,9 @@ const MC_Wiki_type = '9';
 const PNS_TARGET_TITLE = '热门活动';
 const PNS_Wiki_type = '2';
 
-export const getWutheringWavesEvent = async (url: string) => {
+export const getWutheringWavesEvent = async (env: Env) => {
 	const res = (await (
-		await fetch(url, {
+		await fetch(env.VITE_KURO_WIKI_GAME_API, {
 			method: 'POST',
 			headers: {
 				Wiki_type: MC_Wiki_type,
@@ -19,17 +20,29 @@ export const getWutheringWavesEvent = async (url: string) => {
 	if (!target) {
 		return [];
 	}
+	const catalogueId = target.more.linkConfig.catalogueId;
+	if (catalogueId) {
+		const res = await fetch(`${env.VITE_KURO_WIKI_CATALOGUE_API}?catalogueId=${catalogueId}`, {
+			method: 'POST',
+			body: JSON.stringify({
+				catalogueId,
+				page: 1,
+				limit: 100,
+			}),
+		});
+		console.log('res:', res);
+	}
 	return target?.content
 		.filter(({ countDown }) => !!countDown)
 		.map((item) => {
 			const {
 				countDown,
 				title,
-				linkConfig: { entryId },
+				linkConfig: { entryId, linkUrl },
 				contentUrl: banner,
 			} = item;
 			const [start_time, end_time] = countDown!.dateRange;
-			return { id: entryId, title, start_time, end_time, banner };
+			return { id: entryId, title, start_time, end_time, banner, linkUrl };
 		});
 };
 
