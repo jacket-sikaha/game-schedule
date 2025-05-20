@@ -1,4 +1,4 @@
-import { Image } from "antd";
+import { Image, Typography } from "antd";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
@@ -15,6 +15,7 @@ import {
 dayjs.extend(isBetween);
 dayjs.extend(isSameOrAfter);
 
+const { Link } = Typography;
 function EventCalendar({ value, activity, style }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(value);
   const [showActivityOverview, setShowActivityOverview] = useState(true);
@@ -116,14 +117,14 @@ ${showActivityOverview ? "Slide" : "Slide collapsed"}`}
             />
           </svg>
         </div>
-        <div>
+        <div className="flex flex-col divide-y-2 divide-black divide-dashed">
           {eventOverviewListSorting(levelAssignment(activity)).map(
             (item, i) => {
               return (
                 <div
                   key={item.id}
                   // tailwindcss 自定义transition写法
-                  className={`w-full mb-3 rounded-t-lg border-b-2 border-stone-950 border-dashed ${
+                  className={`w-full p-2 flex flex-col items-center justify-center gap-2 ${
                     showActivityOverview
                       ? "transition-all duration-[300ms] ease-in scale-100 break-words"
                       : "transition-all duration-[300ms] ease-in scale-0 opacity-0 overflow-hidden"
@@ -133,7 +134,7 @@ ${showActivityOverview ? "Slide" : "Slide collapsed"}`}
                   // }`}
                 >
                   {item?.banner && (
-                    <div className="mx-auto rounded-md flex justify-center">
+                    <div className="mx-auto rounded-md">
                       <Image
                         src={item?.banner}
                         alt={item?.title}
@@ -146,7 +147,7 @@ ${showActivityOverview ? "Slide" : "Slide collapsed"}`}
                       />
                     </div>
                   )}
-                  <div className="mt-2 flex flex-col items-center">
+                  <div className="flex flex-col items-center gap-2">
                     <div
                       className="text-gray-700 max-sm:text-xs"
                       style={{
@@ -191,6 +192,15 @@ ${showActivityOverview ? "Slide" : "Slide collapsed"}`}
                           "YYYY/MM/DD HH:mm"
                         )}`}
                     </div>
+                    {item.linkUrl && (
+                      <Link
+                        className="block text-sm"
+                        href={item.linkUrl}
+                        target="_blank"
+                      >
+                        活动详情
+                      </Link>
+                    )}
                   </div>
                 </div>
               );

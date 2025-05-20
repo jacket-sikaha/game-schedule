@@ -9,6 +9,7 @@ export declare interface CalendarActivity {
   content?: string;
   range?: string;
   isEnd?: boolean;
+  linkUrl?: string;
 }
 export declare interface CalendarProps {
   value: Dayjs;
