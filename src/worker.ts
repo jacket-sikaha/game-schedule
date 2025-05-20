@@ -1,18 +1,18 @@
 import {
-	createCors,
+	cors,
 	error, // creates error Responses
 	json, // creates JSON Responses
 	Router, // the Router itself
 	withParams, // middleware to extract params into the Request itself
 } from 'itty-router';
+import { getAKEventWithDetailTime } from './Arknights/util';
 import { getFGOEventWithDetailTime, getImgBanner } from './fgo/util';
-import { getAKEventWithDetailTime } from './arknights/util';
-import { getPunishingEvent, getWutheringWavesEvent } from './kuro-game/util';
+import { getWutheringWavesEvent, getPunishingEvent } from './kuro-game/util';
 
 // create the CORS pair
-const { preflight, corsify } = createCors({
-	methods: ['GET', 'PATCH', 'POST', 'OPTION'],
-	origins: [
+const { preflight, corsify } = cors({
+	allowMethods: ['GET', 'PATCH', 'POST', 'OPTION'],
+	origin: [
 		'https://gameevent-frontend.pages.dev',
 		'http://localhost:5173',
 		'https://d7b65e5b.gameevent-frontend.pages.dev',
