@@ -29,12 +29,16 @@ const getAKEventDetail = async (url: string) => {
 	if (!title && !time) {
 		return [];
 	}
-	const event = title?.map((title, i) => {
-		const [start_time, end_time] = parseStrToTime(time![i]) || [null, null];
-		const banner = html && getImgBanner(html[i]);
-		return { id: `${data.cid}${i}`, title, start_time, end_time, banner };
-	});
-	return event;
+	const event =
+		title?.map((title, i) => {
+			const [start_time, end_time] = parseStrToTime(time![i]) || [null, null];
+			if (!start_time || !end_time) {
+				return null;
+			}
+			const banner = (html && getImgBanner(html[i])) || '';
+			return { id: `${data.cid}${i}`, title, start_time, end_time, banner, linkUrl: data.jumpLink };
+		}) ?? [];
+	return event?.filter((item) => item !== null);
 };
 
 const parseStrToTime = (str: string) => {

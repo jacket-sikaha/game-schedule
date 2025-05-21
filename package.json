@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"deploy": "wrangler deploy",
-		"start": "wrangler dev",
+		"start": "wrangler dev --ip 0.0.0.0",
 		"types": "wrangler types"
 	},
 	"devDependencies": {
@@ -14,6 +14,7 @@
 	},
 	"dependencies": {
 		"cheerio": "^1.0.0",
+		"dayjs": "^1.11.13",
 		"itty-router": "^5.0.0"
 	}
 }

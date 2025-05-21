@@ -2,6 +2,8 @@ import { cors, RouterType, AutoRouter, error, StatusError } from 'itty-router';
 import { getAKEventWithDetailTime } from './Arknights/util';
 import { getFGOEventWithDetailTime, getImgBanner } from './fgo/util';
 import { getWutheringWavesEvent, getPunishingEvent } from './kuro-game/util';
+import { CalendarActivityResult, GamekeeData } from './gamekee/DataType';
+import { handleGamekeeEvent } from './gamekee/util';
 
 // create the CORS pair
 const { preflight, corsify } = cors({
@@ -19,7 +21,6 @@ const { preflight, corsify } = cors({
 });
 
 export const buildRouter = (env: Env): RouterType => {
-	console.log('env:', env);
 	const router = AutoRouter({
 		before: [preflight], // <-- put preflight upstream
 		finally: [corsify], // <-- put corsify downstream
@@ -31,7 +32,7 @@ export const buildRouter = (env: Env): RouterType => {
 
 		.get('/pcr', async (_) => await fetch(env.VITE_PCR_API))
 
-		.get('/genshin', async (_) => {
+		.get('/genshin', async (_): Promise<CalendarActivityResult> => {
 			try {
 				const response = await fetch(env.VITE_GENSHIN_API);
 				const genshin: any = await response.json();
@@ -41,7 +42,7 @@ export const buildRouter = (env: Env): RouterType => {
 			}
 		})
 
-		.get('/starrail', async (_) => {
+		.get('/starrail', async (_): Promise<CalendarActivityResult> => {
 			try {
 				const response = await fetch(env.VITE_STARRAIL_API);
 				const starrail: any = await response.json();
@@ -51,7 +52,7 @@ export const buildRouter = (env: Env): RouterType => {
 			}
 		})
 
-		.get('/fgo', async (_) => {
+		.get('/fgo', async (_): Promise<CalendarActivityResult> => {
 			try {
 				const data = await getFGOEventWithDetailTime(env.VITE_FGOEventList_API);
 				return { code: 200, data };
@@ -60,7 +61,7 @@ export const buildRouter = (env: Env): RouterType => {
 			}
 		})
 
-		.get('/ak', async (_) => {
+		.get('/ak', async (_): Promise<CalendarActivityResult> => {
 			try {
 				const data = await getAKEventWithDetailTime(env.VITE_AKEventList_API, env.VITE_AKEventDetail_API);
 				return { code: 200, data };
@@ -69,7 +70,7 @@ export const buildRouter = (env: Env): RouterType => {
 			}
 		})
 
-		.get('/mc', async (_) => {
+		.get('/mc', async (_): Promise<CalendarActivityResult> => {
 			try {
 				const data = await getWutheringWavesEvent(env);
 				return { code: 200, data };
@@ -79,10 +80,44 @@ export const buildRouter = (env: Env): RouterType => {
 			}
 		})
 
-		.get('/pns', async (_) => {
+		.get('/pns', async (_): Promise<CalendarActivityResult> => {
 			try {
 				const data = await getPunishingEvent(env.VITE_KURO_WIKI_GAME_API);
 				return { code: 200, data };
+			} catch (error: any) {
+				throw new StatusError(500, error.message);
+			}
+		})
+
+		.get('/ba', async (_): Promise<CalendarActivityResult> => {
+			try {
+				const tmp = await fetch(env.VITE_BA_API, {
+					headers: {
+						'game-alias': 'ba',
+					},
+				});
+				const res: GamekeeData = await tmp.json();
+				return {
+					code: 200,
+					data: handleGamekeeEvent(res.data),
+				};
+			} catch (error: any) {
+				throw new StatusError(500, error.message);
+			}
+		})
+
+		.get('/nikke', async (_): Promise<CalendarActivityResult> => {
+			try {
+				const tmp = await fetch(env.VITE_NIKKE_API, {
+					headers: {
+						'game-alias': 'nikke',
+					},
+				});
+				const res: GamekeeData = await tmp.json();
+				return {
+					code: 200,
+					data: handleGamekeeEvent(res.data),
+				};
 			} catch (error: any) {
 				throw new StatusError(500, error.message);
 			}

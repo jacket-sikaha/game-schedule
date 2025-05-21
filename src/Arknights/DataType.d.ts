@@ -14,5 +14,6 @@ export declare interface AKEventData {
 	start_time: string;
 	end_time: string;
 	banner?: string;
+	jumpLink?: string;
 	content: string;
 }

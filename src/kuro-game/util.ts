@@ -1,4 +1,4 @@
-import { Env } from '@/index';
+import dayjs from 'dayjs';
 import { CatalogueData, KuroWikiGameData } from './DataType';
 
 // wuthering-waves
@@ -30,7 +30,6 @@ export const getWutheringWavesEvent = async (env: Env) => {
 		data.results.records.forEach((item) => {
 			imgMap.set(item.entryId, item.content.contentUrl);
 		});
-		console.log('res:', data);
 	}
 	return target?.content
 		.filter(({ countDown }) => !!countDown)
@@ -42,7 +41,7 @@ export const getWutheringWavesEvent = async (env: Env) => {
 				contentUrl: banner,
 			} = item;
 			const [start_time, end_time] = countDown!.dateRange;
-			return { id: entryId, title, start_time, end_time, banner: imgMap.get(+(entryId ?? 0)) ?? banner, linkUrl };
+			return { id: entryId ?? dayjs().unix(), title, start_time, end_time, banner: imgMap.get(+(entryId ?? 0)) ?? banner, linkUrl };
 		});
 };
 

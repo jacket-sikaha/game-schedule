@@ -28,10 +28,13 @@ const getFGOEventDetail = async (url: string, linkUrl: string) => {
 	let start_time;
 	let end_time;
 	if (!temp) {
-		return { ...data, content: temp, start_time, end_time, banner, linkUrl };
+		return null;
 	}
 	const matchArr = temp[0].match(/[0-9]{4}年[0-9]{1,2}月[0-9]{1,2}日/gm);
 	start_time = matchArr && matchArr[0];
+	if (!start_time) {
+		return null;
+	}
 	if (matchArr && matchArr?.length > 1) {
 		end_time = matchArr[1];
 	}
@@ -41,7 +44,8 @@ const getFGOEventDetail = async (url: string, linkUrl: string) => {
 
 const getFGOEventWithDetailTime = async (eventsUrl: string) => {
 	const events = await getFGOEventList(eventsUrl);
-	return await Promise.all(events.map(({ detail, linkUrl }) => getFGOEventDetail(detail, linkUrl)));
+	const tmp = await Promise.all(events.map(({ detail, linkUrl }) => getFGOEventDetail(detail, linkUrl)));
+	return tmp.filter((item) => item !== null);
 };
 
 export { getFGOEventWithDetailTime, getImgBanner };
