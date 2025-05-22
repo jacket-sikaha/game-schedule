@@ -4,6 +4,9 @@ import Layout from "@/components/Layout";
 import { menuList } from "@/utils/menuData";
 import NotFound from "@/components/NotFound";
 import { useEffect } from "react";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 function App() {
   useEffect(() => {

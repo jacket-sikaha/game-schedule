@@ -3,11 +3,9 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import EventCalendar from "@/components/EventCalendar";
 import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
 import { CalendarActivity } from "@/components/EventCalendar/CalendarType";
 import Loading from "@/components/Loading";
 import { BACKEND_URL } from "@/services/note";
-dayjs.extend(customParseFormat);
 
 function Arknights() {
   const [eventData, setEventData] = useState<CalendarActivity[]>();

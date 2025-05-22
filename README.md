@@ -2,6 +2,23 @@
 
 通过调用手游官网和 Wiki 的 API，实时获取各大手游活动信息并整理到日历中，助您轻松规划游戏时间。
 
+### demo 页面
+
+[https://gameevent-frontend.pages.dev/](https://gameevent-frontend.pages.dev/)
+
+~~目前已接入游戏：PCR 原神 星穹铁道 FGO 明日方舟
+精确度目前暂时精确到天，后续看情况细分到分钟~~
+
+---
+
+- 2025/5/22 新增接入游戏：蔚蓝档案（日服），NIKKE:胜利女神（外服）,鸣潮 banner 显示高清图，部分游戏增加活动详情链接
+- 2024/8/13 新增接入游戏：鸣潮，战双帕弥什，点击图片支持预览
+- 2024/8/10 提取出明日方舟的 banner 图
+- 2024/7/27 使用 cheerio 提取出 fgo 的 banner 图
+- 2024/2/13 调整日历布局和日历显示，不再因侧边栏伸缩而出现高度变化，支持点击对应的周日程控制其高度折叠
+
+---
+
 ### DIY 日历组件(基于 Tailwindcss 和 Dayjs 设计)
 
 - 具备日历基本的查看各个年份的日期功能
@@ -25,28 +42,6 @@
   ![UI](http://dns.huagecloud.top:8097/api/files/1689263227023.png)
 
   [详细版参考：vue-simple-calendar](https://tallent.us/vue-simple-calendar/)
-
-##### 详细版预览图
-
-![详细版预览图](http://dns.huagecloud.top:8097/api/files/1689761920259.png)
-
----
-
-##### ~~2023/7/22 计划接入 API 数据和基于日历组件正式进行 Game-Events-Calendar 页面开发~~
-
-### demo 页面
-
-[https://gameevent-frontend.pages.dev/](https://gameevent-frontend.pages.dev/)
-
-目前已接入游戏：PCR 原神 星穹铁道 FGO 明日方舟
-精确度目前暂时精确到天，后续看情况细分到分钟
-
----
-
-- 2024/2/13 调整日历布局和日历显示，不再因侧边栏伸缩而出现高度变化，支持点击对应的周日程控制其高度折叠
-- 2024/7/27 使用 cheerio 提取出 fgo 的 banner 图
-- 2024/8/10 提取出明日方舟的 banner 图
-- 2024/8/13 新增接入游戏：鸣潮，战双帕弥什，点击图片支持预览
 
 ---
 

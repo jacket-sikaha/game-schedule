@@ -5,6 +5,8 @@ import FGO from "@/pages/FGO";
 import Arknights from "@/pages/Arknights";
 import WutheringWaves from "@/pages/wuthering-waves";
 import Pns from "@/pages/Pns";
+import BaJp from "@/pages/ba-jp";
+import Nikke from "@/pages/nikke";
 
 // 懒加载组件 要配合Suspense使用，避免白屏问题
 // fast fresh问题 懒加载的组件里不能额外再导出别的东西
@@ -55,6 +57,19 @@ export const menuList: menuItem[] = [
     icon: "https://prod-alicdn-community.kurobbs.com/forum/243f9583d24142bba43633972763294120240505.png",
     element: <Pns />,
   },
+  {
+    name: "蔚蓝档案（日服）",
+    path: "/ba-jp",
+    icon: "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_252/h_204/829/191981/2024/10/8/971717.png",
+    element: <BaJp />,
+  },
+  {
+    name: "NIKKE:胜利女神（外服）",
+    path: "/nikke",
+    icon: "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_128/h_128/1253/475341/2025/0/10/769776.webp",
+    element: <Nikke />,
+  },
+
   // {
   //   name: "xxxx",
   //   path: "/xxx",

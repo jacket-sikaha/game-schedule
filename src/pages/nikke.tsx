@@ -7,11 +7,11 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useQuery } from "react-query";
 
-function WutheringWaves() {
+function Nikke() {
   const [eventData, setEventData] = useState<CalendarActivity[]>();
   const { isFetching } = useQuery({
-    queryKey: ["wuthering-waves"],
-    queryFn: () => axios(`${BACKEND_URL}/mc`),
+    queryKey: ["nikke"],
+    queryFn: () => axios(`${BACKEND_URL}/nikke`),
     onSuccess(data: any) {
       setEventData(
         data?.data?.data?.filter((item: CalendarActivity) => {
@@ -37,4 +37,4 @@ function WutheringWaves() {
   );
 }
 
-export default WutheringWaves;
+export default Nikke;
