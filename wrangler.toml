@@ -18,7 +18,8 @@ VITE_AKEventList_API = "https://ak-webview.hypergryph.com/api/game/bulletinList?
 VITE_AKEventDetail_API = "https://ak-webview.hypergryph.com/api/game/bulletin"
 VITE_KURO_WIKI_GAME_API = "https://api.kurobbs.com/wiki/core/homepage/getPage"
 VITE_KURO_WIKI_CATALOGUE_API = "https://api.kurobbs.com/wiki/core/catalogue/item/getPage"
-VITE_BA_API = "https://www.gamekee.com/v1/activity/page-list?importance=0&sort=-1&keyword=&limit=999&page_no=1&serverId=15&status=0"
+VITE_BA_API = "https://bluearchive-cn.com/api/news/list?pageIndex=1&pageNum=16&type=1"
+VITE_BA_JP_API = "https://www.gamekee.com/v1/activity/page-list?importance=0&sort=-1&keyword=&limit=999&page_no=1&serverId=15&status=0"
 VITE_NIKKE_API = "https://www.gamekee.com/v1/activity/page-list?importance=0&sort=-1&keyword=&limit=999&page_no=1&serverId=19&status=0"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)

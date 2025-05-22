@@ -4,6 +4,8 @@ import { getFGOEventWithDetailTime, getImgBanner } from './fgo/util';
 import { getWutheringWavesEvent, getPunishingEvent } from './kuro-game/util';
 import { CalendarActivityResult, GamekeeData } from './gamekee/DataType';
 import { handleGamekeeEvent } from './gamekee/util';
+import { BAData } from './ba/DataType';
+import { handleBAData } from './ba/util';
 
 // create the CORS pair
 const { preflight, corsify } = cors({
@@ -91,7 +93,21 @@ export const buildRouter = (env: Env): RouterType => {
 
 		.get('/ba', async (_): Promise<CalendarActivityResult> => {
 			try {
-				const tmp = await fetch(env.VITE_BA_API, {
+				// const tmp = await fetch('https://bluearchive-cn.com/api/news/list?pageIndex=65&pageNum=16&type=1');
+				const tmp = await fetch(env.VITE_BA_API);
+				const res: BAData = await tmp.json();
+				return {
+					code: 200,
+					data: handleBAData(res),
+				};
+			} catch (error: any) {
+				throw new StatusError(500, error.message);
+			}
+		})
+
+		.get('/ba-jp', async (_): Promise<CalendarActivityResult> => {
+			try {
+				const tmp = await fetch(env.VITE_BA_JP_API, {
 					headers: {
 						'game-alias': 'ba',
 					},
@@ -143,7 +159,7 @@ export const buildRouter = (env: Env): RouterType => {
 		<p class="p">
 			<img src="//i0.hdslb.com/bfs/game/646d58b443193dd98e95b9452749b893a3335a93.png" alt="" />
 		</p>
-		  `);
+		`);
 				return { code: 200, data };
 			} catch (error: any) {
 				throw new StatusError(500, error.message);
