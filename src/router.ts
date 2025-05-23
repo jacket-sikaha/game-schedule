@@ -32,7 +32,15 @@ export const buildRouter = (env: Env): RouterType => {
 		// GET todos - just return some data!
 		.get('/todos', (_) => env.VITE_PCR_API)
 
-		.get('/pcr', async (_) => await fetch(env.VITE_PCR_API))
+		.get('/pcr', async (_): Promise<CalendarActivityResult> => {
+			try {
+				const response = await fetch(env.VITE_PCR_API);
+				const tmp: any = await response.json();
+				return tmp;
+			} catch (error: any) {
+				throw new StatusError(500, error.message);
+			}
+		})
 
 		.get('/genshin', async (_): Promise<CalendarActivityResult> => {
 			try {
