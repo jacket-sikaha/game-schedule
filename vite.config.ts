@@ -19,6 +19,16 @@ export default defineConfig(({ command, mode }) => {
         },
       ],
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            antd: ["antd"],
+          },
+        },
+      },
+      // minify: false
+    },
     server: {
       proxy: {
         // string shorthand: http://localhost:5173/foo -> http://localhost:4567/foo

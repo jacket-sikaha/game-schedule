@@ -18,7 +18,7 @@ function App() {
       <Layout>
         <Routes>
           {/* <Route path="/" element={<Home />} index /> */}
-          {menuList.map(({ path, element }, i) => {
+          {menuList.map(({ path, element }) => {
             return <Route key={path} path={path} element={element} />;
           })}
           <Route path="*" element={<NotFound />} />
