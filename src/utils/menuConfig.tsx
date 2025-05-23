@@ -1,17 +1,15 @@
 import Pcr from "@/pages/Pcr";
-import Genshin from "@/pages/Genshin";
-import StarRail from "@/pages/StarRail";
-import FGO from "@/pages/FGO";
-import Arknights from "@/pages/Arknights";
-import WutheringWaves from "@/pages/wuthering-waves";
-import Pns from "@/pages/Pns";
-import BaJp from "@/pages/ba-jp";
-import Nikke from "@/pages/nikke";
-
-// 懒加载组件 要配合Suspense使用，避免白屏问题
-// fast fresh问题 懒加载的组件里不能额外再导出别的东西
-// export const Genshin2 = lazy(() => import("../pages/Genshin"));
-// const StarRail = lazy(() => import("../pages/StarRail"));
+import {
+  Arknights,
+  Ba,
+  BaJp,
+  FGO,
+  Genshin,
+  Nikke,
+  Pns,
+  StarRail,
+  WutheringWaves,
+} from "./menuData";
 
 export const menuList: menuItem[] = [
   {
@@ -56,6 +54,12 @@ export const menuList: menuItem[] = [
     path: "/pns",
     icon: "https://prod-alicdn-community.kurobbs.com/forum/243f9583d24142bba43633972763294120240505.png",
     element: <Pns />,
+  },
+  {
+    name: "蔚蓝档案（国服）",
+    path: "/ba",
+    icon: "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_282/h_282/829/43637/2023/1/24/949300.png",
+    element: <Ba />,
   },
   {
     name: "蔚蓝档案（日服）",

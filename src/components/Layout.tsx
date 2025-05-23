@@ -11,9 +11,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { useMemo, useState } from "react";
-import { menuList } from "@/utils/menuData";
+import { Suspense, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { RouterLoading } from "./Loading";
+import { menuList } from "@/utils/menuConfig";
 
 const drawerWidth = 220;
 
@@ -170,7 +171,7 @@ export default function ResponsiveDrawer(props: Props) {
           paddingTop: 8,
         }}
       >
-        {children}
+        <Suspense fallback={<RouterLoading />}>{children}</Suspense>
       </Box>
     </Box>
   );
