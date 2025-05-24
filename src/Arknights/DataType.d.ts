@@ -11,6 +11,7 @@ export declare interface AKEventData {
 	cid: string;
 	title: string;
 	header: string;
+	category: 1 | 2 | 4;
 	start_time: string;
 	end_time: string;
 	banner?: string;

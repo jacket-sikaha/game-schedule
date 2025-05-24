@@ -8,27 +8,26 @@ const activitiesHtmlReg =
 	/<div[^<]+<img[^<]+\/><\/div><p>\s*<strong>[一二三四五六七八九十]{1,2}[^<>]+?<\/strong><\/p><p>\s*<strong>活动时间：<\/strong>[^<]+<\/p>/gm;
 
 function stripHtmlTags(html: string) {
-	return html.replace(/<[^>]*>/g, '');
+	return html.replace(/<[^>]*>/g, ' ');
 }
 
 const getAKPopupEvent = async (eventList: string, eventDetail: string) => {
 	const res = await fetch(eventList);
 	// const data = ((await res.json()) as AKData).data.popup.defaultPopup;
 	// return `${eventDetail}/${data}`;
-	const data = ((await res.json()) as AKData).data.list.map((obj) => `${eventDetail}/${obj.cid}`);
+	const data = ((await res.json()) as AKData).data.list.filter(({ category }) => category === 1).map((obj) => `${eventDetail}/${obj.cid}`);
 	return data;
 };
 
 const getAKEventDetail = async (url: string) => {
 	const res = await fetch(url);
 	const data = ((await res.json()) as { data: AKEventData }).data;
+	if (!data.content) return [];
 	const text = stripHtmlTags(data.content);
 	const title = text.match(titleReg);
 	const time = text.match(timeReg);
 	const html = data.content.match(activitiesHtmlReg);
-	if (!title && !time) {
-		return [];
-	}
+	if (!title && !time) return [];
 	const event =
 		title?.map((title, i) => {
 			const [start_time, end_time] = parseStrToTime(time![i]) || [null, null];
@@ -36,7 +35,7 @@ const getAKEventDetail = async (url: string) => {
 				return null;
 			}
 			const banner = (html && getImgBanner(html[i])) || '';
-			return { id: `${data.cid}${i}`, title, start_time, end_time, banner, linkUrl: data.jumpLink };
+			return { id: `${data.cid}${i}`, title: title.trim(), start_time, end_time, banner, linkUrl: data.jumpLink };
 		}) ?? [];
 	return event?.filter((item) => item !== null);
 };
