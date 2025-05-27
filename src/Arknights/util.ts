@@ -1,5 +1,7 @@
+import dayjs from 'dayjs';
 import { getImgBanner } from '../fgo/util';
 import { AKData, AKEventData } from './DataType';
+import { TIME_FORMAT } from '@/common';
 
 const titleReg = /[一二三四五六七八九十]{1,2}、[^一二三四五六七八九十]+(?=活动时间：)/gm;
 const timeReg = /(?<=[一二三四五六七八九十]{1,2}、[^一二三四五六七八九十]+)活动时间：.+?-.+?\d{1,2}:\d{2}/gm;
@@ -30,10 +32,12 @@ const getAKEventDetail = async (url: string) => {
 	if (!title && !time) return [];
 	const event =
 		title?.map((title, i) => {
-			const [start_time, end_time] = parseStrToTime(time![i]) || [null, null];
+			let [start_time, end_time] = parseStrToTime(time![i]) || [null, null];
 			if (!start_time || !end_time) {
 				return null;
 			}
+			start_time = dayjs(start_time, ['YYYY M D H:mm', 'YYYY MM DD HH:mm'], 'zh-cn').format(TIME_FORMAT);
+			end_time = dayjs(end_time, ['YYYY M D H:mm', 'YYYY MM DD HH:mm'], 'zh-cn').format(TIME_FORMAT);
 			const banner = (html && getImgBanner(html[i])) || '';
 			return { id: `${data.cid}${i}`, title: title.trim(), start_time, end_time, banner, linkUrl: data.jumpLink };
 		}) ?? [];

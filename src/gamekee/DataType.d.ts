@@ -1,20 +1,3 @@
-export declare interface CalendarActivityResult {
-	code: number;
-	msg?: string;
-	data: {
-		id: number | string;
-		title?: string;
-		start_time: string;
-		end_time: string;
-		banner?: string;
-		content?: string;
-		range?: string;
-		isEnd?: boolean;
-		linkUrl?: string;
-		[key: string]: any;
-	}[];
-}
-
 export declare interface GamekeeData {
 	code: number;
 	msg: string;

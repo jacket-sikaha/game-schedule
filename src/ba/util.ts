@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { BAData } from './DataType';
+import { TIME_FORMAT } from '@/common';
 
 const filterKeys = ['活动时间'];
 export const handleBAData = (data: BAData) => {
@@ -12,7 +13,7 @@ export const handleBAData = (data: BAData) => {
 				id,
 				...arg,
 				...times[0],
-				publishTime: dayjs(publishTime).format('YYYY-MM-DD HH:mm'),
+				publishTime: dayjs(publishTime).format(TIME_FORMAT),
 				times,
 				linkUrl: `https://bluearchive-cn.com/news/${id}`,
 			};
@@ -43,8 +44,8 @@ const matchTime = (html: string, timeCalibrationVal: number) => {
 				end_time = end_time.add(1, 'year');
 			}
 			return {
-				start_time: start_time.format('YYYY-MM-DD HH:mm'),
-				end_time: end_time.format('YYYY-MM-DD HH:mm'),
+				start_time: start_time.format(TIME_FORMAT),
+				end_time: end_time.format(TIME_FORMAT),
 			};
 		});
 };

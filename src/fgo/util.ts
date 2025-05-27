@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { FGOData } from './DataType';
 import * as cheerio from 'cheerio';
+import { TIME_FORMAT } from '@/common';
 
 // cf worker的node环境更特别一些，jsdom所需要的node依赖和worker不完全兼容
 // cheerio
@@ -39,8 +40,8 @@ const getFGOEventDetail = async (url: string, linkUrl: string) => {
 	return {
 		...data,
 		content: temp[0],
-		start_time: start_time.format('YYYY-MM-DD HH:mm'),
-		end_time: end_time.format('YYYY-MM-DD HH:mm'),
+		start_time: start_time.format(TIME_FORMAT),
+		end_time: end_time.format(TIME_FORMAT),
 		banner,
 		linkUrl,
 	};

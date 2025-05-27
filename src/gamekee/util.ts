@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
-import { CalendarActivityResult, GamekeeData } from './DataType';
-
-export const getShanghaiDate = (date?: dayjs.ConfigType) => dayjs(date).tz('Asia/Shanghai');
+import { GamekeeData } from './DataType';
+import { CalendarActivityResult } from '@/common';
 
 export const handleGamekeeEvent = (data: GamekeeData['data']): CalendarActivityResult['data'] => {
 	return data.map(({ picture, big_picture, link_url, begin_at, end_at, ...item }) => {

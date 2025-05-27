@@ -2,10 +2,11 @@ import { cors, RouterType, AutoRouter, error, StatusError } from 'itty-router';
 import { getAKEventWithDetailTime } from './Arknights/util';
 import { getFGOEventWithDetailTime, getImgBanner } from './fgo/util';
 import { getWutheringWavesEvent, getPunishingEvent } from './kuro-game/util';
-import { CalendarActivityResult, GamekeeData } from './gamekee/DataType';
+import { GamekeeData } from './gamekee/DataType';
 import { handleGamekeeEvent } from './gamekee/util';
 import { BAData } from './ba/DataType';
 import { handleBAData } from './ba/util';
+import { CalendarActivityResult } from './common';
 
 // create the CORS pair
 const { preflight, corsify } = cors({
