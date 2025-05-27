@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { FGOData } from './DataType';
 import * as cheerio from 'cheerio';
 
@@ -16,7 +17,6 @@ const getFGOEventList = async (eventsUrl: string) => {
 			detail: `https://api.biligame.com/news/${obj.id}.action`,
 			linkUrl: `https://game.bilibili.com/fgo/news.html#!news/1/1/${obj.id}`,
 		}));
-	console.log('data:', data);
 	return data;
 };
 
@@ -25,21 +25,25 @@ const getFGOEventDetail = async (url: string, linkUrl: string) => {
 	const data = ((await res.json()) as { data: FGOData }).data;
 	const temp = data.content.match(/[0-9]{4}年[0-9]{1,2}月[0-9]{1,2}日[^\<\>]+?为止/gm);
 	const banner = getImgBanner(data.content);
-	let start_time;
-	let end_time;
-	if (!temp) {
-		return null;
+	if (!temp) return null;
+	let [start_time, end_time] = temp[0].split(/[～~]/).map((time) => {
+		if (!time.includes(':')) {
+			time += ' 4:00';
+		}
+		return dayjs(time, ['YYYY M D H:mm', 'M D H:mm'], 'zh-cn');
+	});
+	end_time = end_time.year(start_time.year());
+	if (start_time.isAfter(end_time)) {
+		end_time = end_time.add(1, 'year');
 	}
-	const matchArr = temp[0].match(/[0-9]{4}年[0-9]{1,2}月[0-9]{1,2}日/gm);
-	start_time = matchArr && matchArr[0];
-	if (!start_time) {
-		return null;
-	}
-	if (matchArr && matchArr?.length > 1) {
-		end_time = matchArr[1];
-	}
-	end_time = start_time?.slice(0, 5) + temp[0].match(/[0-9]{1,2}月[0-9]{1,2}日/gm)![1];
-	return { ...data, content: temp[0], start_time, end_time, banner, linkUrl };
+	return {
+		...data,
+		content: temp[0],
+		start_time: start_time.format('YYYY-MM-DD HH:mm'),
+		end_time: end_time.format('YYYY-MM-DD HH:mm'),
+		banner,
+		linkUrl,
+	};
 };
 
 const getFGOEventWithDetailTime = async (eventsUrl: string) => {
