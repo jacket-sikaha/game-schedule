@@ -14,24 +14,9 @@ function Arknights() {
     queryFn: () => axios(`${BACKEND_URL}/ak`),
     onSuccess(data: any) {
       setEventData(
-        data?.data?.data
-          ?.filter((item: CalendarActivity) => {
-            return Boolean(item.start_time);
-          })
-          .map((item: CalendarActivity) => {
-            // 带中文的日期格式dayjs都不能直接识别
-            item.start_time = dayjs(
-              item.start_time,
-              "YYYY M D HH:mm",
-              "zh-cn"
-            ).format("YYYY-MM-DD HH:mm");
-            item.end_time = dayjs(
-              item.end_time,
-              "YYYY M D HH:mm",
-              "zh-cn"
-            ).format("YYYY-MM-DD HH:mm");
-            return item;
-          })
+        data?.data?.data?.filter((item: CalendarActivity) => {
+          return Boolean(item.start_time);
+        })
       );
     },
   });

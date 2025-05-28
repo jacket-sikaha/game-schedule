@@ -19,15 +19,15 @@ function FGO() {
             return Boolean(item.start_time);
           })
           .map((item: CalendarActivity) => {
-            // 带中文的日期格式dayjs都不能直接识别
-            item.start_time = dayjs(
-              item.start_time,
-              "YYYY M D",
-              "zh-cn"
-            ).format("YYYY-MM-DD");
-            item.end_time = dayjs(item.end_time, "YYYY M D", "zh-cn").format(
-              "YYYY-MM-DD"
-            );
+            // // 带中文的日期格式dayjs都不能直接识别
+            // item.start_time = dayjs(
+            //   item.start_time,
+            //   "YYYY M D",
+            //   "zh-cn"
+            // ).format("YYYY-MM-DD");
+            // item.end_time = dayjs(item.end_time, "YYYY M D", "zh-cn").format(
+            //   "YYYY-MM-DD"
+            // );
             item.range = item.content ?? undefined;
             return item;
           })
