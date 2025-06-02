@@ -7,6 +7,7 @@ import { handleGamekeeEvent } from './gamekee/util';
 import { BAData } from './ba/DataType';
 import { handleBAData } from './ba/util';
 import { CalendarActivityResult } from './common';
+import { getSnowBreakEventData } from './snowbreak/util';
 
 // create the CORS pair
 const { preflight, corsify } = cors({
@@ -102,7 +103,7 @@ export const buildRouter = (env: Env): RouterType => {
 
 		.get('/ba', async (_): Promise<CalendarActivityResult> => {
 			try {
-				// const tmp = await fetch('https://bluearchive-cn.com/api/news/list?pageIndex=65&pageNum=16&type=1');
+				// const tmp = await fetch('https://bluearchive-cn.com/api/news/list?pageIndex=1&pageNum=350&type=1');
 				const tmp = await fetch(env.VITE_BA_API);
 				const res: BAData = await tmp.json();
 				return {
@@ -142,6 +143,18 @@ export const buildRouter = (env: Env): RouterType => {
 				return {
 					code: 200,
 					data: handleGamekeeEvent(res.data),
+				};
+			} catch (error: any) {
+				throw new StatusError(500, error.message);
+			}
+		})
+
+		.get('/cbjq', async (_): Promise<CalendarActivityResult> => {
+			try {
+				const data = await getSnowBreakEventData(env.VITE_SNOWBREAK_API);
+				return {
+					code: 200,
+					data,
 				};
 			} catch (error: any) {
 				throw new StatusError(500, error.message);

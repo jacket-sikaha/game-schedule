@@ -21,6 +21,7 @@ VITE_KURO_WIKI_CATALOGUE_API = "https://api.kurobbs.com/wiki/core/catalogue/item
 VITE_BA_API = "https://bluearchive-cn.com/api/news/list?pageIndex=1&pageNum=16&type=1"
 VITE_BA_JP_API = "https://www.gamekee.com/v1/activity/page-list?importance=0&sort=-1&keyword=&limit=999&page_no=1&serverId=15&status=0"
 VITE_NIKKE_API = "https://www.gamekee.com/v1/activity/page-list?importance=0&sort=-1&keyword=&limit=999&page_no=1&serverId=19&status=0"
+VITE_SNOWBREAK_API = "https://www.cbjq.com/api.php?op=search_api&action=get_article_list&catid=7131&page=1&num=16&order_by=inputtime"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
