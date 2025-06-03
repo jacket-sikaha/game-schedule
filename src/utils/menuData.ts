@@ -13,3 +13,4 @@ export const Pns = lazy(() => import("@/pages/Pns"));
 export const Ba = lazy(() => import("@/pages/ba"));
 export const Nikke = lazy(() => import("@/pages/nikke"));
 export const BaJp = lazy(() => import("@/pages/ba-jp"));
+export const SnowBreak = lazy(() => import("@/pages/snow-break"));

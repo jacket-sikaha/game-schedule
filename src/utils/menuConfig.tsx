@@ -7,6 +7,7 @@ import {
   Genshin,
   Nikke,
   Pns,
+  SnowBreak,
   StarRail,
   WutheringWaves,
 } from "./menuData";
@@ -14,13 +15,13 @@ import {
 export const menuList: menuItem[] = [
   {
     name: "公主连结",
-    path: "/",
+    path: "/pcr",
     icon: "https://pcredivewiki.tw/static/images/unit/icon_unit_117131.png",
     element: <Pcr />,
   },
   {
     name: "原神",
-    path: "/genshin",
+    path: "/",
     icon: "https://img-static.mihoyo.com/communityweb/upload/14792b4820e324d9e9ef2bbea406f4ae.png",
     element: <Genshin />,
   },
@@ -72,6 +73,12 @@ export const menuList: menuItem[] = [
     path: "/nikke",
     icon: "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_128/h_128/1253/475341/2025/0/10/769776.webp",
     element: <Nikke />,
+  },
+  {
+    name: "尘白禁区",
+    path: "/snowbreak",
+    icon: "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_425/h_550/1220/157597/2024/11/12/962297.png?x-image-process=image/resize,m_lfit,h_300,w_300/ignore-error,1&image_process=resize,mid,w_300,h_300",
+    element: <SnowBreak />,
   },
 
   // {
