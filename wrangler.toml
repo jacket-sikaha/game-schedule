@@ -1,9 +1,8 @@
-name = "gebackend"                # 对应你账号worker里的部署的项目名称
+name = "gebackend"                      # 对应你账号worker里的部署的项目名称
 main = "src/index.ts"
-compatibility_date = "2023-07-17"
+compatibility_date = "2024-09-23"
 send_metrics = true
-
-# node_compat = true
+compatibility_flags = ["nodejs_compat"]
 
 # Define top-level environment variables
 # under the `[vars]` block using
