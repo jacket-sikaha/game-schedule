@@ -88,10 +88,8 @@ router
 	.get('/mc', async (_, env, ctx): Promise<CalendarActivityResult> => {
 		try {
 			const data = await getWutheringWavesEvent(env);
-			console.log('_._cashed:', _._cashed);
 			return { code: 200, data };
 		} catch (error: any) {
-			console.log('error:', error);
 			throw new StatusError(500, error.message);
 		}
 	})

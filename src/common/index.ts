@@ -30,13 +30,14 @@ export const checkCacheResults: RequestHandler<IRequest, CFArgs> = async (reques
 		// 添加Redis操作超时
 		const res = await Promise.race([
 			RedisInstance.getInstance().get(path),
-			new Promise((_, reject) => setTimeout(() => reject(new Error('Redis get timeout')), 3000)),
+			new Promise((_, reject) => setTimeout(() => reject(new Error('Redis get timeout')), 2000)),
 		]);
 		let data = res ? JSON.parse(res as string) : null;
 		if (data) {
 			request._cashed = RequestCashedStatus.CASHED;
-			return json(data, { status: 200 });
+			return json(data, { status: 200, headers: { 'Cache-Redis': 'sikara' } });
 		}
+		// 缓存未命中 ，标记用于后续缓存
 		request._cashed = RequestCashedStatus.NOT_CASHED;
 	} catch (error) {
 		console.error('Redis get error:', error);
@@ -49,7 +50,7 @@ export const test = async (request: IRequest): Promise<any> => {
 		// 添加Redis操作超时
 		const res = await Promise.race([
 			RedisInstance.getInstance().get(path),
-			new Promise((_, reject) => setTimeout(() => reject(new Error('Redis get timeout')), 3000)),
+			new Promise((_, reject) => setTimeout(() => reject(new Error('Redis get timeout')), 2000)),
 		]);
 		return res ? JSON.parse(res as string) : null;
 	} catch (error) {
@@ -57,14 +58,13 @@ export const test = async (request: IRequest): Promise<any> => {
 		return null;
 	}
 };
-export const setCacheResults = async (key: string, data: CalendarActivityResult, ex = 30) => {
+export const setCacheResults = async (key: string, data: CalendarActivityResult, ex = 300) => {
 	try {
 		// 添加Redis操作超时
 		const res = await Promise.race([
 			RedisInstance.getInstance().set(key, JSON.stringify(data), 'EX', ex),
-			new Promise((_, reject) => setTimeout(() => reject(new Error('Redis set timeout')), 3000)),
+			new Promise((_, reject) => setTimeout(() => reject(new Error('Redis set timeout')), 2000)),
 		]);
-		console.log('setCacheResults:', res);
 	} catch (error) {
 		console.error('Redis set error:', error);
 	}
