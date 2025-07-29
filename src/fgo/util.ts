@@ -10,6 +10,9 @@ const getImgBanner = (htmlStr: string) => {
 	return $('img').attr('src');
 };
 
+export const html2Str = (htmlStr: string) => {
+	return cheerio.load(htmlStr, null, false).text();
+};
 const getFGOEventList = async (eventsUrl: string) => {
 	const res = await fetch(eventsUrl);
 	const data = ((await res.json()) as { data: FGOData[] }).data
@@ -22,29 +25,33 @@ const getFGOEventList = async (eventsUrl: string) => {
 };
 
 const getFGOEventDetail = async (url: string, linkUrl: string) => {
-	const res = await fetch(url);
-	const data = ((await res.json()) as { data: FGOData }).data;
-	const temp = data.content.match(/[0-9]{4}年[0-9]{1,2}月[0-9]{1,2}日[^\<\>]+?为止/gm);
-	const banner = getImgBanner(data.content);
-	if (!temp) return null;
-	let [start_time, end_time] = temp[0].split(/[～~]/).map((time) => {
-		if (!time.includes(':')) {
-			time += ' 4:00';
+	try {
+		const res = await fetch(url);
+		const data = ((await res.json()) as { data: FGOData }).data;
+		const temp = html2Str(data.content).match(/[0-9]{4}年[0-9]{1,2}月[0-9]{1,2}日.+?[～~].+?为止/gm);
+		const banner = getImgBanner(data.content);
+		if (!temp) return null;
+		let [start_time, end_time] = temp[0].split(/[～~]/).map((time) => {
+			if (!time.includes(':')) {
+				time += ' 4:00';
+			}
+			return dayjs(time, ['YYYY M D H:mm', 'M D H:mm'], 'zh-cn');
+		});
+		end_time = end_time.year(start_time.year());
+		if (start_time.isAfter(end_time)) {
+			end_time = end_time.add(1, 'year');
 		}
-		return dayjs(time, ['YYYY M D H:mm', 'M D H:mm'], 'zh-cn');
-	});
-	end_time = end_time.year(start_time.year());
-	if (start_time.isAfter(end_time)) {
-		end_time = end_time.add(1, 'year');
+		return {
+			...data,
+			content: temp[0],
+			start_time: start_time.format(TIME_FORMAT),
+			end_time: end_time.format(TIME_FORMAT),
+			banner,
+			linkUrl,
+		};
+	} catch (error) {
+		return null;
 	}
-	return {
-		...data,
-		content: temp[0],
-		start_time: start_time.format(TIME_FORMAT),
-		end_time: end_time.format(TIME_FORMAT),
-		banner,
-		linkUrl,
-	};
 };
 
 const getFGOEventWithDetailTime = async (eventsUrl: string) => {

@@ -78,8 +78,8 @@ export const destroyRedisClient: ResponseHandler<Response, IRequest> = async (re
 	const path = new URL(req.url).pathname.slice(1);
 	const data = (await res.clone().json()) as CalendarActivityResult;
 	console.log('req._cashed:', req._cashed);
-	// 缓存未命中， 直接设置缓存
-	if (!req._cashed) {
+	// 缓存未命中且接口返回正常，直接设置缓存
+	if (!req._cashed && res.status < 300 && res.status >= 200) {
 		await setCacheResults(path, data);
 	}
 	RedisInstance.destroyed();
