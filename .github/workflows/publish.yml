@@ -10,21 +10,23 @@ jobs:
     name: Publish to Cloudflare Pages
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install pnpm
-        run: npm install -g pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
-      - name: Install dependencies with pnpm
-        run: pnpm i
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
+      - name: Build frontend
+        run: pnpm build:frontend
 
       # Run a build step here if your project requires
       - name: Cloudflare Pages GitHub Action
@@ -33,7 +35,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: gameevent-frontend
-          directory: ./apps/web-frontend
+          directory: ./apps/web-frontend/dist
 
           # Optional: Enable this if you want to have GitHub Deployments triggered
           # 该token每个工作流作业开始时，GitHub 会自动创建唯一的 GITHUB_TOKEN 机密以在工作流中使用，直接使用无需额外设置机密变量
