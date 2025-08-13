@@ -1,6 +1,11 @@
-import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
+import { defineConfig, loadEnv } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { visualizer } from "rollup-plugin-visualizer";
+import viteCompression from "vite-plugin-compression";
+import svgr from "vite-plugin-svgr";
 import { resolve } from "path";
+
 // const ORIGIN_SERVER = import.meta.env.VITE_ORIGIN_SERVER;
 // https://vitejs.dev/config/
 // Vite 默认是不加载 .env 文件的，因为这些文件需要在执行完 Vite 配置后才能确定加载哪一个
@@ -9,7 +14,20 @@ export default defineConfig(({ command, mode }) => {
   // 设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
   const env = loadEnv(mode, process.cwd(), "");
   return {
-    plugins: [react()],
+    plugins: [
+      react(),
+      tsconfigPaths(),
+      svgr(),
+      viteCompression({
+        algorithm: "gzip",
+        threshold: 10240,
+        ext: ".gz",
+      }),
+      visualizer({
+        open: process.env.NODE_ENV === "production",
+        filename: "bundle-analysis.html",
+      }),
+    ],
     resolve: {
       // 配置别名 减少查找模块时间消耗
       alias: [
@@ -24,8 +42,18 @@ export default defineConfig(({ command, mode }) => {
         output: {
           manualChunks: {
             antd: ["antd"],
+            vendor: ["react", "react-dom", "react-router-dom"],
+            mui: ["@mui/material", "@mui/icons-material"],
+            utils: ["axios", "dayjs"],
           },
+          chunkFileNames: "assets/js/[name]-[hash].js",
+          entryFileNames: "assets/js/[name]-[hash].js",
+          assetFileNames: "assets/[ext]/[name]-[hash].[ext]",
         },
+      },
+      esbuild: {
+        dropconsole: true, // 生产环境移除console
+        dropdebugger: true, // 移除debugger
       },
       // minify: false
     },

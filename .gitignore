@@ -26,3 +26,4 @@ dist-ssr
 .env
 package-lock.json
 asd.js
+bundle-analysis.html
