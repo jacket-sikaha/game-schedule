@@ -23,8 +23,8 @@
 
 ### 其他
 
-项目架构介绍：[README.md](./doc/README.md)
-项目开发指南：[DEPLOYMENT.md](./doc/DEPLOYMENT.md)
+- 项目架构介绍：[README.md](./doc/README.md)
+- 项目开发指南：[DEPLOYMENT.md](./doc/DEVELOPMENT.md)
 
 ---
 
