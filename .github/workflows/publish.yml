@@ -1,4 +1,11 @@
-on: [push]
+name: Deploy Frontend to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/web-frontend/**"
+      - ".github/workflows/publish.yml"
 
 jobs:
   publish:
@@ -7,7 +14,6 @@ jobs:
       contents: read
       deployments: write
 
-    name: Publish to Cloudflare Pages
     steps:
       - name: Checkout
         uses: actions/checkout@v4
