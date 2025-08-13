@@ -34,11 +34,6 @@ jobs:
       - name: Build frontend
         run: pnpm build:frontend
 
-      - name: pwd
-        run: pwd
-
-      - name: ls
-        run: ls
       # Run a build step here if your project requires
       - name: Cloudflare Pages GitHub Action
         uses: cloudflare/pages-action@v1.5.0
