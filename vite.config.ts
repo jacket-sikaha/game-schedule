@@ -51,10 +51,6 @@ export default defineConfig(({ command, mode }) => {
           assetFileNames: "assets/[ext]/[name]-[hash].[ext]",
         },
       },
-      esbuild: {
-        dropconsole: true, // 生产环境移除console
-        dropdebugger: true, // 移除debugger
-      },
       // minify: false
     },
     server: {
