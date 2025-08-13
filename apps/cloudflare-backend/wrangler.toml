@@ -1,0 +1,77 @@
+name = "gebackend"                      # 对应你账号worker里的部署的项目名称
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+send_metrics = true
+compatibility_flags = ["nodejs_compat"]
+
+# wrangler.toml (wrangler v3.88.0^)
+[observability.logs]
+enabled = true
+
+
+# Define top-level environment variables
+# under the `[vars]` block using
+# the `key = "value"` format
+# "gebackend"
+[vars]
+VITE_PCR_API = "https://pcr.satroki.tech/api/Manage/GetEvents?s=cn"
+VITE_GENSHIN_API = "https://hk4e-api.mihoyo.com/common/hk4e_cn/announcement/api/getAnnList?game=hk4e&game_biz=hk4e_cn&lang=zh-cn&bundle_id=hk4e_cn&platform=pc&region=cn_gf01&level=55&uid=100000000"
+VITE_STARRAIL_API = "https://hkrpg-api-static.mihoyo.com/common/hkrpg_cn/announcement/api/getAnnList?game=hkrpg&game_biz=hkrpg_cn&lang=zh-cn&bundle_id=hkrpg_cn&platform=pc&region=prod_gf_cn&level=30&uid=11111111"
+VITE_FGOEventList_API = "https://api.biligame.com/news/list.action?gameExtensionId=45&positionId=2&pageNum=1&pageSize=10&typeId="
+VITE_AKEventList_API = "https://ak-webview.hypergryph.com/api/game/bulletinList?target=IOS"
+VITE_AKEventDetail_API = "https://ak-webview.hypergryph.com/api/game/bulletin"
+VITE_KURO_WIKI_GAME_API = "https://api.kurobbs.com/wiki/core/homepage/getPage"
+VITE_KURO_WIKI_CATALOGUE_API = "https://api.kurobbs.com/wiki/core/catalogue/item/getPage"
+VITE_BA_API = "https://bluearchive-cn.com/api/news/list?pageIndex=1&pageNum=16&type=1"
+VITE_BA_JP_API = "https://www.gamekee.com/v1/activity/page-list?importance=0&sort=-1&keyword=&limit=999&page_no=1&serverId=15&status=0"
+VITE_NIKKE_API = "https://www.gamekee.com/v1/activity/page-list?importance=0&sort=-1&keyword=&limit=999&page_no=1&serverId=19&status=0"
+VITE_SNOWBREAK_API = "https://www.cbjq.com/api.php?op=search_api&action=get_article_list&catid=7131&page=1&num=16&order_by=inputtime"
+REDIS_PASSWD = 'xxxxxxxxxxxxxx'
+
+# Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
+# Note: Use secrets to store sensitive data.
+# Docs: https://developers.cloudflare.com/workers/platform/environment-variables
+# [vars]
+# MY_VARIABLE = "production_value"
+
+# Bind a KV Namespace. Use KV as persistent storage for small key-value pairs.
+# Docs: https://developers.cloudflare.com/workers/runtime-apis/kv
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Bind an R2 Bucket. Use R2 to store arbitrarily large blobs of data, such as files.
+# Docs: https://developers.cloudflare.com/r2/api/workers/workers-api-usage/
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+# Bind a Queue producer. Use this binding to schedule an arbitrary task that may be processed later by a Queue consumer.
+# Docs: https://developers.cloudflare.com/queues/get-started
+# [[queues.producers]]
+# binding = "MY_QUEUE"
+# queue = "my-queue"
+
+# Bind a Queue consumer. Queue Consumers can retrieve tasks scheduled by Producers to act on them.
+# Docs: https://developers.cloudflare.com/queues/get-started
+# [[queues.consumers]]
+# queue = "my-queue"
+
+# Bind another Worker service. Use this binding to call another Worker without network overhead.
+# Docs: https://developers.cloudflare.com/workers/platform/services
+# [[services]]
+# binding = "MY_SERVICE"
+# service = "/api/*"
+
+# Bind a Durable Object. Durable objects are a scale-to-zero compute primitive based on the actor model.
+# Durable Objects can live for as long as needed. Use these when you need a long-running "server", such as in realtime apps.
+# Docs: https://developers.cloudflare.com/workers/runtime-apis/durable-objects
+# [[durable_objects.bindings]]
+# name = "MY_DURABLE_OBJECT"
+# class_name = "MyDurableObject"
+
+# Durable Object migrations.
+# Docs: https://developers.cloudflare.com/workers/learning/using-durable-objects#configure-durable-object-classes-with-migrations
+# [[migrations]]
+# tag = "v1"
+# new_classes = ["MyDurableObject"]

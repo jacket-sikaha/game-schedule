@@ -27,3 +27,9 @@ dist-ssr
 package-lock.json
 asd.js
 bundle-analysis.html
+
+# Turbo
+.turbo
+
+# pnpm
+pnpm-lock.yaml

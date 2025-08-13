@@ -21,6 +21,13 @@
 
 ---
 
+### 其他
+
+项目架构介绍：[README.md](./doc/README.md)
+项目开发指南：[DEPLOYMENT.md](./doc/DEPLOYMENT.md)
+
+---
+
 ### DIY 日历组件(基于 Tailwindcss 和 Dayjs 设计)
 
 - 具备日历基本的查看各个年份的日期功能
