@@ -6,6 +6,7 @@ on:
     paths:
       - "apps/web-frontend/**"
       - ".github/workflows/publish.yml"
+      - "package.json"
 
 jobs:
   publish:
