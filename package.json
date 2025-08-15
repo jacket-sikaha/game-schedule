@@ -9,19 +9,20 @@
   ],
   "scripts": {
     "dev": "pnpm run --parallel dev",
-    "dev:frontend": "pnpm --filter @game-calendar/web-frontend dev",
-    "dev:backend": "pnpm --filter @game-calendar/cloudflare-backend start",
-    "build": "pnpm run --recursive build",
-    "build:frontend": "pnpm --filter @game-calendar/web-frontend build",
-    "build:backend": "pnpm --filter @game-calendar/cloudflare-backend deploy",
-    "lint": "pnpm run --recursive lint",
-    "test": "pnpm run --recursive test",
-    "clean": "pnpm run --recursive clean",
-    "type-check": "pnpm run --recursive type-check"
+    "dev:frontend": "turbo run @game-calendar/web-frontend#dev",
+    "dev:backend": "turbo run @game-calendar/cloudflare-backend#start",
+    "build": "turbo run build",
+    "build:frontend": "turbo run @game-calendar/web-frontend#build",
+    "build:backend": "turbo run @game-calendar/cloudflare-backend#deploy",
+    "lint": "turbo run dev lint",
+    "test": "turbo run dev test",
+    "clean": "turbo run dev clean",
+    "type-check": "turbo run dev type-check"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "turbo": "^2.5.5"
   },
   "engines": {
     "node": ">=18.0.0",
