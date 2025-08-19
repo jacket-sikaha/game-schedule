@@ -89,6 +89,9 @@ export default function ResponsiveDrawer(props: Props) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
+        style={{
+          zIndex: 100,
+        }}
       >
         <Toolbar className="bg-gradient-to-r from-sky-500 to-indigo-500">
           <IconButton
@@ -125,6 +128,7 @@ export default function ResponsiveDrawer(props: Props) {
         </Toolbar>
       </AppBar>
       <Box
+        className="z-50"
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
