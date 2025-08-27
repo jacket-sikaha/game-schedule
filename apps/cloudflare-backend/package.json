@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"deploy": "wrangler deploy",
-		"start": "wrangler dev --ip 0.0.0.0",
+		"dev": "wrangler dev --ip 0.0.0.0",
 		"types": "wrangler types"
 	},
 	"devDependencies": {

@@ -23,13 +23,14 @@ export const handleBAData = (data: BAData) => {
 
 // \d{1,2}月\d{1,2}日.+-.+\d{1,2}月\d{1,2}日\s?\d{2}:\d{2}
 const matchTime = (html: string, timeCalibrationVal: number) => {
-	let reg = /\d{2}月\d{2}日.+~.+\d{2}月\d{2}日\s+\d{2}:\d{2}/gm;
-	let sec_reg = /\d{2}月\d{2}日\s+(\d{2}:\d{2})?/g;
+	let reg = /\d{2}月\d{2}日.+~.+\d{2}月\d{2}日\s*\d{2}:\d{2}/gm;
+	let sec_reg = /\d{2}月\d{2}日\s*(\d{2}:\d{2})?/g;
 	const publishTime = dayjs(timeCalibrationVal);
 	return html
 		.match(reg)
 		?.map((time) => time.match(sec_reg))
 		.filter((item) => !!item)
+		.filter((item) => item.length > 1)
 		.map((arr) => {
 			let [start_time, end_time] = arr.map((time) => {
 				if (!time.includes(':')) {
@@ -47,6 +48,7 @@ const matchTime = (html: string, timeCalibrationVal: number) => {
 			return {
 				start_time: start_time.format(TIME_FORMAT),
 				end_time: end_time.format(TIME_FORMAT),
+				// timeStr: arr,
 			};
 		});
 };

@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "pnpm run --parallel dev",
     "dev:frontend": "turbo run @game-calendar/web-frontend#dev",
-    "dev:backend": "turbo run @game-calendar/cloudflare-backend#start",
+    "dev:backend": "turbo run @game-calendar/cloudflare-backend#dev",
     "build": "turbo run build",
     "build:frontend": "turbo run @game-calendar/web-frontend#build",
     "build:backend": "turbo run @game-calendar/cloudflare-backend#deploy",
