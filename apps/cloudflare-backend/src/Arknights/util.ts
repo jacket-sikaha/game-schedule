@@ -3,7 +3,7 @@ import { getImgBanner } from '../fgo/util';
 import { AKData, AKEventData } from './DataType';
 import { TIME_FORMAT } from '@/common';
 
-const titleReg = /[一二三四五六七八九十]{1,2}、[^一二三四五六七八九十]+(?=活动时间：)/gm;
+const titleReg = /[一二三四五六七八九十]{1,2}、[^一二三四五六七八九十]+?(?=活动时间：)/gm;
 const timeReg = /(?<=[一二三四五六七八九十]{1,2}、[^一二三四五六七八九十]+)活动时间：.+?-.+?\d{1,2}:\d{2}/gm;
 const specialReg = /\d{1,2}月\d{1,2}日.+?-.+?\d{1,2}:\d{1,2}/;
 const activitiesHtmlReg =
