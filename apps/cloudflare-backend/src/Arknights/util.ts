@@ -29,40 +29,43 @@ const getAKEventDetail = async (url: string) => {
 	const title = text.match(titleReg);
 	const time = text.match(timeReg);
 	const html = data.content.match(activitiesHtmlReg);
+	if (url.includes('5640')) console.log({ title, time, html });
+
 	if (!title && !time) return [];
 	const event =
 		title?.map((title, i) => {
-			let [start_time, end_time] = parseStrToTime(time![i]) || [null, null];
+			let [start_time, end_time] = parseStrToTime(time![i], data.displayTime) || [null, null];
 			if (!start_time || !end_time) {
 				return null;
 			}
-			start_time = dayjs(start_time, ['YYYY M D H:mm', 'YYYY MM DD HH:mm'], 'zh-cn').format(TIME_FORMAT);
-			end_time = dayjs(end_time, ['YYYY M D H:mm', 'YYYY MM DD HH:mm'], 'zh-cn').format(TIME_FORMAT);
 			const banner = (html && getImgBanner(html[i])) || '';
 			return { id: `${data.cid}${i}`, title: title.trim(), start_time, end_time, banner, linkUrl: data.jumpLink };
 		}) ?? [];
 	return event?.filter((item) => item !== null);
 };
 
-const parseStrToTime = (str: string) => {
-	const [start_time, end_time] = str
-		.replace(/活动时间：/, '')
-		.split('-')
-		.map((s) => s.trim());
-	if (!start_time || !end_time) {
-		return undefined;
+const parseStrToTime = (str: string, timeCalibrationVal: string) => {
+	let [start_time_str, end_time_str] = str.replace(/活动时间：/, '').split('-');
+	let [start_time, end_time] = [start_time_str, end_time_str]
+		.map((s) => s.trim())
+		.map((item) => (item ? dayjs(item, ['YYYY MM DD HH:mm', 'MM DD HH:mm', 'MM DD'], 'zh-cn') : null));
+
+	const publishTime = dayjs(timeCalibrationVal);
+
+	if (!start_time || !end_time) return undefined;
+	if (!start_time_str.includes('年')) {
+		start_time = start_time.year(publishTime.year());
 	}
-	if (start_time.includes('年')) {
-		return [start_time, end_time];
+	if (!start_time_str.includes(':')) {
+		start_time = start_time.hour(16);
 	}
-	if (start_time.includes('日') && end_time.includes('日')) {
-		const thisYear = new Date().getFullYear().toString() + '年';
-		return [thisYear + start_time, thisYear + end_time];
+	if (!end_time_str.includes(':')) {
+		end_time = end_time.hour(4);
 	}
-	if (specialReg.test(str)) {
-		return [start_time, start_time.match(/.+?日/)![0] + end_time];
+	if (start_time.isAfter(end_time)) {
+		end_time = end_time.add(1, 'year');
 	}
-	return undefined;
+	return [start_time.format(TIME_FORMAT), end_time.format(TIME_FORMAT)];
 };
 
 const getAKEventWithDetailTime = async (eventList: string, eventDetail: string) => {
