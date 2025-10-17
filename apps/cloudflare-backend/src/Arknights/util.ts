@@ -29,7 +29,6 @@ const getAKEventDetail = async (url: string) => {
 	const title = text.match(titleReg);
 	const time = text.match(timeReg);
 	const html = data.content.match(activitiesHtmlReg);
-	if (url.includes('5640')) console.log({ title, time, html });
 
 	if (!title && !time) return [];
 	const event =
