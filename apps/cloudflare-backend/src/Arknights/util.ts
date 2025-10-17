@@ -29,6 +29,7 @@ const getAKEventDetail = async (url: string) => {
 	const title = text.match(titleReg);
 	const time = text.match(timeReg);
 	const html = data.content.match(activitiesHtmlReg);
+	if (url.includes('1014')) console.log({ title, time, html });
 
 	if (!title && !time) return [];
 	const event =
@@ -50,10 +51,13 @@ const parseStrToTime = (str: string, timeCalibrationVal: string) => {
 		.map((item) => (item ? dayjs(item, ['YYYY MM DD HH:mm', 'MM DD HH:mm', 'MM DD'], 'zh-cn') : null));
 
 	const publishTime = dayjs(timeCalibrationVal);
-
 	if (!start_time || !end_time) return undefined;
 	if (!start_time_str.includes('年')) {
 		start_time = start_time.year(publishTime.year());
+		// 对于publishTime是12月发布的，而start_time是1月，则start_time要加1年
+		if (publishTime.diff(start_time, 'month') > 1) {
+			start_time = start_time.add(1, 'year');
+		}
 	}
 	if (!start_time_str.includes(':')) {
 		start_time = start_time.hour(16);
