@@ -4,7 +4,7 @@ import { AKData, AKEventData } from './DataType';
 import { TIME_FORMAT } from '@/common';
 
 const titleReg = /[一二三四五六七八九十]{1,2}、[^一二三四五六七八九十]+?(?=活动时间：)/gm;
-const timeReg = /(?<=[一二三四五六七八九十]{1,2}、[^一二三四五六七八九十]+)活动时间：.+?-.+?\d{1,2}:\d{2}/gm;
+const timeReg = /[一二三四五六七八九十]{1,2}、[^一二三四五六七八九十]+?活动时间：.+?-.+?\d{1,2}:\d{2}/gm;
 const specialReg = /\d{1,2}月\d{1,2}日.+?-.+?\d{1,2}:\d{1,2}/;
 const activitiesHtmlReg =
 	/<div[^<]+<img[^<]+\/><\/div><p>\s*<strong>[一二三四五六七八九十]{1,2}[^<>]+?<\/strong><\/p><p>\s*<strong>活动时间：<\/strong>[^<]+<\/p>/gm;
@@ -27,9 +27,8 @@ const getAKEventDetail = async (url: string) => {
 	if (!data.content) return [];
 	const text = stripHtmlTags(data.content);
 	const title = text.match(titleReg);
-	const time = text.match(timeReg);
+	const time = text.match(timeReg)?.map((item) => item.replace(titleReg, ''));
 	const html = data.content.match(activitiesHtmlReg);
-	if (url.includes('1014')) console.log({ title, time, html });
 
 	if (!title && !time) return [];
 	const event =
