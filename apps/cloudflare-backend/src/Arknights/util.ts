@@ -26,7 +26,7 @@ const getAKEventDetail = async (url: string) => {
 	const data = ((await res.json()) as { data: AKEventData }).data;
 	if (!data.content) return [];
 	const text = stripHtmlTags(data.content);
-	const title = text.match(titleReg);
+	const title = text.match(titleReg)?.map((item) => item.trim());
 	const time = text.match(timeReg)?.map((item) => item.replace(titleReg, ''));
 	const html = data.content.match(activitiesHtmlReg);
 
@@ -37,8 +37,9 @@ const getAKEventDetail = async (url: string) => {
 			if (!start_time || !end_time) {
 				return null;
 			}
-			const banner = (html && getImgBanner(html[i])) || '';
-			return { id: `${data.cid}${i}`, title: title.trim(), start_time, end_time, banner, linkUrl: data.jumpLink };
+			const tmp = html?.find((str) => str.includes(title));
+			const banner = (tmp && getImgBanner(tmp)) || '';
+			return { id: `${data.cid}${i}`, title, start_time, end_time, banner, linkUrl: data.jumpLink };
 		}) ?? [];
 	return event?.filter((item) => item !== null);
 };

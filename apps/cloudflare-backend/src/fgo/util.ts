@@ -6,8 +6,12 @@ import { TIME_FORMAT } from '@/common';
 // cf worker的node环境更特别一些，jsdom所需要的node依赖和worker不完全兼容
 // cheerio
 const getImgBanner = (htmlStr: string) => {
-	const $ = cheerio.load(htmlStr);
-	return $('img').attr('src');
+	try {
+		const $ = cheerio.load(htmlStr);
+		return $('img').attr('src');
+	} catch (error) {
+		return undefined;
+	}
 };
 
 export const html2Str = (htmlStr: string) => {
