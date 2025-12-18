@@ -167,6 +167,21 @@ router
 		}
 	})
 
+	.post('/gamekee-img', async (req) => {
+		try {
+			const { url } = (await req.json()) as { url: string };
+			const res = await fetch(url, {
+				headers: {
+					Referer: 'https://www.gamekee.com/',
+				},
+			});
+			const data = await res.blob();
+			return new Response(data);
+		} catch (error: any) {
+			throw new StatusError(500, error.message);
+		}
+	})
+
 	.get('/imgfromhtml', async (_) => {
 		try {
 			const data = getImgBanner(`<p class="p">
