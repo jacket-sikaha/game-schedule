@@ -59,25 +59,25 @@ export const menuList: menuItem[] = [
   {
     name: "蔚蓝档案（国服）",
     path: "/ba",
-    icon: "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_282/h_282/829/43637/2023/1/24/949300.png",
+    icon: "https://static.kivo.wiki/images/students/%E7%BE%BD%E5%B7%9D%20%E8%8E%B2%E8%A7%81/%E6%B3%B3%E8%A3%85/Student_Portrait_CH0291_Collection.png",
     element: <Ba />,
   },
   {
     name: "蔚蓝档案（日服）",
     path: "/ba-jp",
-    icon: "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_252/h_204/829/191981/2024/10/8/971717.png",
+    icon: "https://static.kivo.wiki/images/students/%E7%A0%82%E7%8B%BC%20%E7%99%BD%E5%AD%90/%E6%B3%B3%E8%A3%85/avatar.png",
     element: <BaJp />,
   },
   {
     name: "NIKKE:胜利女神（外服）",
     path: "/nikke",
-    icon: "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_128/h_128/1253/475341/2025/0/10/769776.webp",
+    icon: "https://nikke.win/images/characters/si_c112_00_s.webp",
     element: <Nikke />,
   },
   {
     name: "尘白禁区",
     path: "/snowbreak",
-    icon: "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_425/h_550/1220/157597/2024/11/12/962297.png?x-image-process=image/resize,m_lfit,h_300,w_300/ignore-error,1&image_process=resize,mid,w_300,h_300",
+    icon: "https://img2.tapimg.com/moment/etag/FtpNqUhgnT8Y92z_1CRhLaCd_eLg.png",
     element: <SnowBreak />,
   },
 

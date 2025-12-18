@@ -57,6 +57,7 @@ export default function ResponsiveDrawer(props: Props) {
                     src={icon}
                     alt={name}
                     className="w-full h-full object-contain rounded-sm"
+                    referrerPolicy="same-origin"
                   />
                 </ListItemIcon>
                 <ListItemText primary={name} />
