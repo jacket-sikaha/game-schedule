@@ -14,9 +14,17 @@ function BaJp() {
     queryFn: () => axios(`${BACKEND_URL}/ba-jp`),
     onSuccess(data: any) {
       setEventData(
-        data?.data?.data?.filter((item: CalendarActivity) => {
-          return Boolean(item.start_time);
-        })
+        data?.data?.data
+          ?.filter((item: CalendarActivity) => {
+            return Boolean(item.start_time);
+          })
+          .map((item: CalendarActivity) => ({
+            ...item,
+            banner: item.banner?.replace(
+              "cdnimg-v2.gamekee.com",
+              "sikara.soappig.cn:9080/gamekee"
+            ),
+          }))
       );
     },
   });
