@@ -18,11 +18,11 @@ function Nikke() {
           ?.filter((item: CalendarActivity) => {
             return Boolean(item.start_time);
           })
-          .map((item: CalendarActivity) => ({
+          。map((item: CalendarActivity) => ({
             ...item,
             banner: item.banner?.replace(
               "cdnimg-v2.gamekee.com",
-              "sikara.soappig.cn:9080/gamekee"
+              "sikara.soappig.cn:10443/gamekee"
             ),
           }))
       );
