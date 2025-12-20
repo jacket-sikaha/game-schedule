@@ -18,7 +18,7 @@ function BaJp() {
           ?.filter((item: CalendarActivity) => {
             return Boolean(item.start_time);
           })
-          。map((item: CalendarActivity) => ({
+          .map((item: CalendarActivity) => ({
             ...item,
             banner: item.banner?.replace(
               "cdnimg-v2.gamekee.com",
