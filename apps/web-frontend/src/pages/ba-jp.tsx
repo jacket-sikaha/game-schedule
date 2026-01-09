@@ -22,7 +22,7 @@ function BaJp() {
             ...item,
             banner: item.banner?.replace(
               "cdnimg-v2.gamekee.com",
-              "sikara.soappig.cn:10443/gamekee"
+              "lucky.sikaha.dpdns.org:10443/gamekee"
             ),
           }))
       );
