@@ -2,6 +2,8 @@
 
 通过调用手游官网和 Wiki 的 API，实时获取各大手游活动信息并整理到日历中，助您轻松规划游戏时间。
 
+[![DeepWiki Index](https://deepwiki.com/badge.svg)](https://deepwiki.com/jacket-sikaha/game-schedule)
+
 ### demo 页面
 
 [https://gameevent-frontend.pages.dev/](https://gameevent-frontend.pages.dev/)
