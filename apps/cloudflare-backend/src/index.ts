@@ -1,9 +1,9 @@
 import { RouterType } from 'itty-router';
 import { router } from './router';
-import customParseFormat from 'dayjs/plugin/customParseFormat'; // ES 2015
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone'; // dependent on utc plugin
+import customParseFormat from 'dayjs/plugin/customParseFormat'; // ES 2015
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

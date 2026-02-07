@@ -50,7 +50,10 @@ const parseStrToTime = (str: string, timeCalibrationVal: string) => {
 		.map((s) => s.trim())
 		// (2025 年)? 12 月 11 日 16:10 这类格式都能识别
 		.map((item) => (item ? dayjs(item, ['YYYY MM DD HH:mm', 'MM DD HH:mm', 'MM DD'], 'zh-cn') : null));
-
+	// 特殊情况，02月16日 20:00 - 24:00
+	if (!/[年月日]/g.test(end_time_str)) {
+		end_time = start_time ? dayjs(start_time.format('YYYY-MM-DD') + end_time_str, 'YYYY-MM-DD HH:mm', 'zh-cn') : null;
+	}
 	const publishTime = dayjs(timeCalibrationVal);
 	if (!start_time || !end_time) return undefined;
 	if (!start_time_str.includes(':')) {
