@@ -22,11 +22,17 @@ export default defineConfig(({ command, mode }) => {
         algorithm: "gzip",
         threshold: 10240,
         ext: ".gz",
+        filter: (file) => {
+          if (file.includes("google6a66598811758c28.html")) {
+            return false;
+          }
+          return /\.(js|mjs|json|css|html)$/i.test(file);
+        },
       }),
-      visualizer({
-        open: false,
-        filename: "bundle-analysis.html",
-      }),
+      env.VITE_OPEN_ANALYSIS === "1" &&
+        visualizer({
+          filename: "bundle-analysis.html",
+        }),
     ],
     resolve: {
       // 配置别名 减少查找模块时间消耗
