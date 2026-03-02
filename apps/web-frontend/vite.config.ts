@@ -24,7 +24,7 @@ export default defineConfig(({ command, mode }) => {
         ext: ".gz",
       }),
       visualizer({
-        open: process.env.NODE_ENV === "production",
+        open: false,
         filename: "bundle-analysis.html",
       }),
     ],
