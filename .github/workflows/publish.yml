@@ -21,10 +21,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up CI environment
+        run: echo "CI=${{ github.CI }}"
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4 # 升级到最新稳定版
         with:
-          version: 8
           # 启用 pnpm 内置的 store 缓存
           run_install: false
 
@@ -55,7 +57,7 @@ jobs:
             ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile # 锁定依赖版本，避免意外更新
+        run: pnpm install
 
       - name: Build frontend
         run: pnpm build:frontend
