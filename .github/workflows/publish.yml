@@ -7,7 +7,6 @@ on:
       - "apps/web-frontend/**"
       - ".github/workflows/publish.yml"
       - "package.json"
-      - "pnpm-lock.yaml" # 新增：pnpm锁文件变更也触发构建
 
 jobs:
   publish:
@@ -28,10 +27,6 @@ jobs:
           node-version: 18
           # 指定 node 版本缓存，避免重复下载
           cache: "pnpm"
-          # 明确指定缓存路径，提升缓存命中率
-          cache-dependency-path: |
-            **/pnpm-lock.yaml
-            package.json
 
       - name: Install pnpm
         uses: pnpm/action-setup@v3 # 升级到最新稳定版
