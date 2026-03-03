@@ -24,7 +24,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4 # 升级到最新稳定版
         with:
-          version: 9
+          version: 8
           # 启用 pnpm 内置的 store 缓存
           run_install: false
 
