@@ -42,21 +42,6 @@ jobs:
             **/pnpm-lock.yaml
             package.json
 
-      - name: Get pnpm cache directory path
-        id: pnpm-cache-dir-path
-        run: echo "dir=$(pnpm config get cacheFolder)" >> $GITHUB_OUTPUT
-
-      - name: Cache pnpm dependencies (核心缓存步骤)
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.pnpm-store       # pnpm 全局存储（所有项目共享）
-            **/node_modules     # 当前项目的依赖目录
-            ~/.cache/node-gyp   # 可选：缓存 node-gyp 编译产物
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
       - name: Install dependencies
         run: pnpm install
 
