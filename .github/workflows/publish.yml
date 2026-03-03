@@ -22,9 +22,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v3 # 升级到最新稳定版
+        uses: pnpm/action-setup@v4 # 升级到最新稳定版
         with:
-          version: 8
+          version: 9
           # 启用 pnpm 内置的 store 缓存
           run_install: false
 
