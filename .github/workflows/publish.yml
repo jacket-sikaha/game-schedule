@@ -28,13 +28,12 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4 # 升级到最新稳定版
         with:
-          # 启用 pnpm 内置的 store 缓存
-          run_install: false
+          version: 10
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
           # 指定 node 版本缓存，避免重复下载
           cache: "pnpm"
           # 明确指定缓存路径，提升缓存命中率
