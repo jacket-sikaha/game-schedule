@@ -1,16 +1,16 @@
-import EventCalendar from "@/components/EventCalendar";
-import { CalendarActivity } from "@/components/EventCalendar/CalendarType";
-import Loading from "@/components/Loading";
-import { BACKEND_URL } from "@/services/note";
-import axios from "axios";
-import dayjs from "dayjs";
-import { useState } from "react";
-import { useQuery } from "react-query";
+import EventCalendar from '@/components/EventCalendar';
+import type { CalendarActivity } from '@/components/EventCalendar/CalendarType';
+import Loading from '@/components/Loading';
+import { BACKEND_URL } from '@/services/note';
+import axios from 'axios';
+import dayjs from 'dayjs';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
 
 function BaJp() {
   const [eventData, setEventData] = useState<CalendarActivity[]>();
   const { isFetching } = useQuery({
-    queryKey: ["ba-jp"],
+    queryKey: ['ba-jp'],
     queryFn: () => axios(`${BACKEND_URL}/ba-jp`),
     onSuccess(data: any) {
       setEventData(
@@ -21,12 +21,12 @@ function BaJp() {
           .map((item: CalendarActivity) => ({
             ...item,
             banner: item.banner?.replace(
-              "cdnimg-v2.gamekee.com",
-              "lucky.sikaha.dpdns.org:10443/gamekee"
-            ),
+              'cdnimg-v2.gamekee.com',
+              'lucky.sikaha.dpdns.org:10443/gamekee'
+            )
           }))
       );
-    },
+    }
   });
   // 检验日历组件
   return (
@@ -37,7 +37,7 @@ function BaJp() {
         <EventCalendar
           {...{
             value: dayjs(),
-            activity: eventData ?? [],
+            activity: eventData ?? []
           }}
         />
       )}

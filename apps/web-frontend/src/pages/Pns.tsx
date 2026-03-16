@@ -1,16 +1,16 @@
-import axios from "axios";
-import { useState } from "react";
-import { useQuery } from "react-query";
-import EventCalendar from "@/components/EventCalendar";
-import dayjs from "dayjs";
-import { CalendarActivity } from "@/components/EventCalendar/CalendarType";
-import Loading from "@/components/Loading";
-import { BACKEND_URL } from "@/services/note";
+import EventCalendar from '@/components/EventCalendar';
+import type { CalendarActivity } from '@/components/EventCalendar/CalendarType';
+import Loading from '@/components/Loading';
+import { BACKEND_URL } from '@/services/note';
+import axios from 'axios';
+import dayjs from 'dayjs';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
 
 function Pns() {
   const [eventData, setEventData] = useState<CalendarActivity[]>();
   const { isFetching } = useQuery({
-    queryKey: ["Pns"],
+    queryKey: ['Pns'],
     queryFn: () => axios(`${BACKEND_URL}/pns`),
     onSuccess(data: any) {
       setEventData(
@@ -18,7 +18,7 @@ function Pns() {
           return Boolean(item.start_time);
         })
       );
-    },
+    }
   });
   // 检验日历组件
   return (
@@ -29,7 +29,7 @@ function Pns() {
         <EventCalendar
           {...{
             value: dayjs(),
-            activity: eventData ?? [],
+            activity: eventData ?? []
           }}
         />
       )}

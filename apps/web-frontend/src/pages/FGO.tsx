@@ -1,16 +1,16 @@
-import axios from "axios";
-import { useState } from "react";
-import { useQuery } from "react-query";
-import EventCalendar from "@/components/EventCalendar";
-import dayjs from "dayjs";
-import { CalendarActivity } from "@/components/EventCalendar/CalendarType";
-import Loading from "@/components/Loading";
-import { BACKEND_URL } from "@/services/note";
+import EventCalendar from '@/components/EventCalendar';
+import type { CalendarActivity } from '@/components/EventCalendar/CalendarType';
+import Loading from '@/components/Loading';
+import { BACKEND_URL } from '@/services/note';
+import axios from 'axios';
+import dayjs from 'dayjs';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
 
 function FGO() {
   const [eventData, setEventData] = useState<CalendarActivity[]>();
   const { isFetching } = useQuery({
-    queryKey: ["fgo"],
+    queryKey: ['fgo'],
     queryFn: () => axios(`${BACKEND_URL}/fgo`),
     onSuccess(data: any) {
       setEventData(
@@ -32,7 +32,7 @@ function FGO() {
             return item;
           })
       );
-    },
+    }
   });
   // 检验日历组件
   // console.log("eventData", eventData);
@@ -44,7 +44,7 @@ function FGO() {
         <EventCalendar
           {...{
             value: dayjs(),
-            activity: eventData ?? [],
+            activity: eventData ?? []
           }}
         />
       )}

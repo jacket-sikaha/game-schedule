@@ -1,26 +1,26 @@
-import { useQuery } from "react-query";
-import EventCalendar from "@/components/EventCalendar";
-import dayjs from "dayjs";
-import axios from "axios";
-import Loading from "@/components/Loading";
-import { useState } from "react";
-import { CalendarActivity } from "@/components/EventCalendar/CalendarType";
-import { BACKEND_URL } from "@/services/note";
+import EventCalendar from '@/components/EventCalendar';
+import type { CalendarActivity } from '@/components/EventCalendar/CalendarType';
+import Loading from '@/components/Loading';
+import { BACKEND_URL } from '@/services/note';
+import axios from 'axios';
+import dayjs from 'dayjs';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
 
 function Pcr() {
   const [eventData, setEventData] = useState<CalendarActivity[]>();
   const { isFetching } = useQuery({
-    queryKey: ["pcr"],
+    queryKey: ['pcr'],
     queryFn: () => axios(`${BACKEND_URL}/pcr`),
     onSuccess(data: { data: any[] }) {
       setEventData(
         data?.data?.map((item: any) => ({
           ...item,
           start_time: item.startTime,
-          end_time: item.endTime,
+          end_time: item.endTime
         }))
       );
-    },
+    }
   });
   return (
     <>
@@ -30,7 +30,7 @@ function Pcr() {
         <EventCalendar
           {...{
             value: dayjs(),
-            activity: eventData ?? [],
+            activity: eventData ?? []
           }}
         />
       )}
