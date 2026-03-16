@@ -4,9 +4,9 @@ on:
   push:
     branches: [main]
     paths:
-      - "apps/web-frontend/**"
-      - ".github/workflows/publish.yml"
-      - "package.json"
+      - 'apps/web-frontend/**'
+      - '.github/workflows/publish.yml'
+      - 'package.json'
 
 jobs:
   publish:
@@ -27,15 +27,15 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4 # 升级到最新稳定版
-        with:
-          version: 10
+        # with:
+        #   version: 10  # 与 packageManager 不能同时设置
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           # 指定 node 版本缓存，避免重复下载
-          cache: "pnpm"
+          cache: 'pnpm'
           # 明确指定缓存路径，提升缓存命中率
           cache-dependency-path: |
             **/pnpm-lock.yaml
@@ -65,4 +65,4 @@ jobs:
           # Optional: Change the working directory
           # workingDirectory: ./dist
           # Optional: Change the Wrangler version, allows you to point to a specific version or a tag such as `beta`
-          wranglerVersion: "3"
+          wranglerVersion: '3'
