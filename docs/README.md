@@ -57,7 +57,7 @@ pnpm lint
 ## 📦 包说明
 
 ### @game-calendar/web-frontend
-- 技术栈：React 18 + TypeScript + Vite + TailwindCSS + Ant Design
+- 技术栈：React 19 + TypeScript + Vite8 + TailwindCSS + Ant Design 6
 - 端口：5173
 - 功能：游戏活动日历展示和管理界面
 
@@ -84,5 +84,5 @@ pnpm lint
 
 ## 🔧 环境要求
 
-- Node.js >= 18.0.0
+- Node.js >= 22.0.0
 - pnpm >= 8.0.0
