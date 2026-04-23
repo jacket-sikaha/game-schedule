@@ -18,19 +18,30 @@ export const html2Str = (htmlStr: string) => {
 	return cheerio.load(htmlStr, null, false).text();
 };
 const getFGOEventList = async (eventsUrl: string) => {
-	const res = await fetch(eventsUrl);
-	const data = ((await res.json()) as { data: FGOData[] }).data
-		.filter((obj: FGOData) => obj.title.indexOf('维护公告') === -1 && obj.title.indexOf('概率公示') === -1)
-		.map((obj: FGOData) => ({
-			detail: `https://api.biligame.com/news/${obj.id}.action`,
-			linkUrl: `https://game.bilibili.com/fgo/news.html#!news/1/1/${obj.id}`,
-		}));
-	return data;
+	try {
+		const res = await fetch(eventsUrl);
+		const { data } = (await res.json()) as { data: FGOData[] };
+		return data
+			.filter((obj: FGOData) => obj.title.indexOf('维护公告') === -1 && obj.title.indexOf('概率公示') === -1)
+			.map((obj: FGOData) => ({
+				detail: `${eventsUrl}`,
+				linkUrl: `https://game.bilibili.com/fgo/news.html#!news/1/1/${obj.id}`,
+				activityId: obj.id,
+			}));
+	} catch (error) {
+		return [];
+	}
 };
 
-const getFGOEventDetail = async (url: string, linkUrl: string) => {
+const getFGOEventDetail = async (url: string, linkUrl: string, activityId: number) => {
 	try {
-		const res = await fetch(url);
+		const res = await fetch(url, {
+			method: 'POST',
+			body: JSON.stringify({ activityId }),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
 		const data = ((await res.json()) as { data: FGOData }).data;
 		const temp = html2Str(data.content).match(/[0-9]{4}年[0-9]{1,2}月[0-9]{1,2}日.+?[～~].+?为止/gm);
 		const banner = getImgBanner(data.content);
@@ -60,7 +71,7 @@ const getFGOEventDetail = async (url: string, linkUrl: string) => {
 
 const getFGOEventWithDetailTime = async (eventsUrl: string) => {
 	const events = await getFGOEventList(eventsUrl);
-	const tmp = await Promise.all(events.map(({ detail, linkUrl }) => getFGOEventDetail(detail, linkUrl)));
+	const tmp = await Promise.all(events.map(({ detail, linkUrl, activityId }) => getFGOEventDetail(detail, linkUrl, activityId)));
 	return tmp.filter((item) => item !== null);
 };
 

@@ -69,8 +69,17 @@ router
 
 	.get('/fgo', async (_, env, ctx): Promise<CalendarActivityResult> => {
 		try {
-			const data = await getFGOEventWithDetailTime(env.VITE_FGOEventList_API);
+			const data = await getFGOEventWithDetailTime(env.VITE_FGO_PROXY_API);
 			return { code: 200, data };
+		} catch (error: any) {
+			throw new StatusError(500, error.message);
+		}
+	})
+
+	.get('/fgoproxy', async (_, env, ctx) => {
+		try {
+			const data = await fetch(env.VITE_FGO_PROXY_API);
+			return { code: 200, data: await data.text() };
 		} catch (error: any) {
 			throw new StatusError(500, error.message);
 		}
