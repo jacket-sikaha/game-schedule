@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+﻿import dayjs from 'dayjs';
 import { getImgBanner } from '../fgo/util';
 import { AKData, AKEventData } from './DataType';
 import { TIME_FORMAT } from '@/common';
@@ -9,7 +9,7 @@ const specialReg = /\d{1,2}月\d{1,2}日.+?-.+?\d{1,2}:\d{1,2}/;
 const activitiesHtmlReg =
 	/<div[^<]+<img[^<]+\/><\/div><p>\s*<strong>[一二三四五六七八九十]{1,2}[^<>]+?<\/strong><\/p><p>\s*<strong>活动时间：<\/strong>[^<]+<\/p>/gm;
 
-function stripHtmlTags(html: string) {
+export function stripHtmlTags(html: string) {
 	return html.replace(/<[^>]*>/g, ' ');
 }
 
@@ -44,8 +44,10 @@ const getAKEventDetail = async (url: string) => {
 	return event?.filter((item) => item !== null);
 };
 
-const parseStrToTime = (str: string, timeCalibrationVal: string) => {
-	let [start_time_str, end_time_str] = str.replace(/活动时间：/, '').split('-');
+export const parseStrToTime = (str: string, timeCalibrationVal: string) => {
+	const parts = str.replace(/活动时间：/, '').split('-');
+	if (parts.length < 2) return undefined;
+	let [start_time_str, end_time_str] = parts;
 	let [start_time, end_time] = [start_time_str, end_time_str]
 		.map((s) => s.trim())
 		// (2025 年)? 12 月 11 日 16:10 这类格式都能识别

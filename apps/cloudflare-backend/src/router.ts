@@ -8,6 +8,7 @@ import { GamekeeData } from './gamekee/DataType';
 import { handleGamekeeEvent } from './gamekee/util';
 import { getPunishingEvent, getWutheringWavesEvent } from './kuro-game/util';
 import { getSnowBreakEventData } from './snowbreak/util';
+import { parseActivities } from './endfield';
 
 // create the CORS pair
 const { preflight, corsify } = cors({
@@ -166,10 +167,34 @@ router
 	.get('/cbjq', async (_, env, ctx): Promise<CalendarActivityResult> => {
 		try {
 			const data = await getSnowBreakEventData(env.VITE_SNOWBREAK_API);
-
 			return {
 				code: 200,
 				data,
+			};
+		} catch (error: any) {
+			throw new StatusError(500, error.message);
+		}
+	})
+
+	.get('/endfield', async (_, env, ctx): Promise<CalendarActivityResult> => {
+		try {
+			const data = await fetch(env.VITE_ENDFIELD_API, {
+				method: 'GET',
+				headers:
+				{
+					"Accept": "*/*",
+					"Host": "end.wiki",
+					// insomnia/2024.1.0
+					// apifox/1.0.0 (https://apifox.com)
+					// PostmanRuntime/7.36.0
+					'User-Agent': 'PostmanRuntime/7.36.0',
+				},
+				redirect: 'follow'
+			});
+			const activities = parseActivities(await data.text());
+			return {
+				code: 200,
+				data: activities,
 			};
 		} catch (error: any) {
 			throw new StatusError(500, error.message);

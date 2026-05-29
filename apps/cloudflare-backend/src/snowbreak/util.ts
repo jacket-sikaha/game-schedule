@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { TIME_FORMAT } from '@/common';
 import { SnowBreakData, SnowBreakListData } from './DataType';
 
-const matchTime = (html: string, timeCalibrationVal: number) => {
+export const matchTime = (html: string, timeCalibrationVal: number) => {
 	let reg = /\d{1,2}月\d{1,2}日.+-.*\d{1,2}月\d{1,2}日\s*\d{2}:\d{2}/gm;
 	let sec_reg = /\d{1,2}月\d{1,2}日\s*(\d{1,2}:\d{1,2})?/g;
 	const publishTime = dayjs(timeCalibrationVal);
