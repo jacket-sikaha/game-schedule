@@ -8,16 +8,16 @@
 		"types": "wrangler types"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20250520.0",
-		"typescript": "^5.0.4",
-		"wrangler": "^4.0.0"
+		"@cloudflare/workers-types": "^4.20260531.1",
+		"typescript": "^5.9.3",
+		"wrangler": "^4.95.0"
 	},
 	"dependencies": {
-		"@types/node": "^24.1.0",
-		"cheerio": "^1.0.0",
-		"dayjs": "^1.11.13",
-		"ioredis": "^5.6.1",
-		"itty-router": "^5.0.0",
-		"redis": "^5.6.0"
+		"@types/node": "^24.12.4",
+		"cheerio": "^1.2.0",
+		"dayjs": "^1.11.21",
+		"ioredis": "^5.11.0",
+		"itty-router": "^5.0.23",
+		"redis": "^5.12.1"
 	}
 }

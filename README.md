@@ -2,7 +2,7 @@
 
 > 多游戏活动日历聚合器 — 通过代理抓取各手游官网/Wiki 活动数据，以统一日历视图呈现，支持 10+ 款游戏的实时活动追踪。
 
-[![demo](https://img.shields.io/badge/demo-online-4FC08D)](https://gameevent-frontend.pages.dev/) 
+[![demo](https://img.shields.io/badge/demo-online-4FC08D)](https://gameevent-frontend.pages.dev/)
 
 [![DeepWiki Index](https://deepwiki.com/badge.svg)](https://deepwiki.com/jacket-sikaha/game-schedule)
 
@@ -224,6 +224,7 @@ game-schedule/
 
 ## 开发记录
 
+- 2026/6/1 新增接入游戏：明日方舟：终末地
 - 2025/6/3 新增接入游戏：尘白禁区，有部分大版本活动会存在多个时间，暂时只显示第一个时间，详细信息请自行查看官网
 - 2025/5/23 新增接入游戏：蔚蓝档案（国服），由于采用正则表达式获取 html 里的活动日程，对于多个时间的活动，暂时只显示第一个时间，详细信息请自行查看官网。
 - 2025/5/22 新增接入游戏：蔚蓝档案（日服），NIKKE:胜利女神（外服）,鸣潮 banner 显示高清图，部分游戏增加活动详情链接
@@ -232,7 +233,6 @@ game-schedule/
 - 2024/7/27 使用 cheerio 提取出 fgo 的 banner 图
 - 2024/2/13 调整日历布局和日历显示，不再因侧边栏伸缩而出现高度变化，支持点击对应的周日程控制其高度折叠
 
-
 ---
 
 ## License
@@ -240,6 +240,7 @@ game-schedule/
 [MIT](./LICENSE)
 
 ---
+
 #### 本项目仅供学习参考使用
 
 本项目的目的是为了提供一个学习资源，展示一些技术实现和编程概念。
