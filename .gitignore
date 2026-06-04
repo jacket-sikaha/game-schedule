@@ -33,3 +33,7 @@ bundle-analysis.html
 
 # pnpm
 pnpm-lock.yaml
+
+.vitest/
+
+coverage/
