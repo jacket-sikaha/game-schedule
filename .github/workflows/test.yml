@@ -5,6 +5,9 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+    paths:
+      - 'apps/cloudflare-backend/**'
+      - '.github/workflows/test.yml'
 
 jobs:
   test:
@@ -49,5 +52,5 @@ jobs:
           # 工件名称（自定义，方便下载区分）
           name: coverage-report-node-${{ matrix.node-version }}
           # 核心：直接写 目录路径 即可上传整个目录
-          path: ./apps/cloudflare-backend/coverage/
+          path: apps/cloudflare-backend/coverage/
           retention-days: 7

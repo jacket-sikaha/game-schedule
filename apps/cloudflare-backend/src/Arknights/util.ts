@@ -30,7 +30,7 @@ const getAKEventDetail = async (url: string) => {
 	const time = text.match(timeReg)?.map((item) => item.replace(titleReg, ''));
 	const html = data.content.match(activitiesHtmlReg);
 
-	if (!title && !time) return [];
+	if (!title || !time) return [];
 	const event =
 		title?.map((title, i) => {
 			let [start_time, end_time] = parseStrToTime(time![i], data.displayTime) || [null, null];

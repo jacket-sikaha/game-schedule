@@ -79,7 +79,7 @@ describe('Arknights/util', () => {
       expect(result![0]).toBe('2025-02-16 20:00')
     })
 
-    it('无'-'分隔符时返回 undefined', () => {
+    it('无\'-\'分隔符时返回 undefined', () => {
       expect(parseStrToTime('活动时间：12月23日 16:10', '2025-12-22 10:00')).toBeUndefined()
     })
 
@@ -198,21 +198,17 @@ describe('Arknights/util', () => {
       expect(result).toHaveLength(0)
     })
 
-    it('时间正则匹配但 parseStrToTime 解析失败 → 该活动被跳过', async () => {
-      // timeReg 要求末尾是 \d{1,2}:\d{2}，给一个能匹配正则但无法解析的时间
-      // dayjs 对 '13月45日 99:99' 可以容错解析，所以这里测不存在的时间分隔符号
+    it('正则不匹配时安全返回空数组（title 有值但 time 为空）', async () => {
+      // timeReg 要求末尾是 \d{1,2}:\d{2}，全角破折号 \u2014 导致正则不匹配
+      // → time 为 undefined → if (!title || !time) 走 return [] 分支
       mockFetch
         .mockResolvedValueOnce(mockListResponse([{ cid: 'evt_001', category: 1 }]))
         .mockResolvedValueOnce(mockDetailResponse({
           content: '一、测试活动活动时间：2025年01月01日 00:00 \u2014 2025年01月02日 00:00',
         }))
 
-      // timeReg 要求半角 '-' 分隔，这里用了全角破折号 \u2014 → 不匹配
-      // → time 为 undefined → title 有值但 time 没有 → 代码会抛 TypeError
-      // （这是源码的一个边界缺陷：没有处理 title 匹配但 time 不匹配的情况）
-      await expect(
-        getAKEventWithDetailTime('https://api.example.com/list', 'https://api.example.com/detail')
-      ).rejects.toThrow()
+      const result = await getAKEventWithDetailTime('https://api.example.com/list', 'https://api.example.com/detail')
+      expect(result).toHaveLength(0)
     })
 
     it('提取 banner（HTML 含 img 标签时，注意无换行）', async () => {
