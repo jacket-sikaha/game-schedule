@@ -37,11 +37,21 @@ jobs:
         env:
           CI: true
 
+      # 5.5 调试：列出覆盖率文件位置
+      - run: |
+          echo "=== 根目录 coverage ==="
+          ls -la coverage/ 2>/dev/null || echo "(无)"
+          echo "=== cloudflare-backend coverage ==="
+          ls -la apps/cloudflare-backend/coverage/ 2>/dev/null || echo "(无)"
+          echo "=== 递归搜索 coverage ==="
+          find . -path '*/coverage/*' -type f 2>/dev/null | head -20 || echo "(无)"
+
       # 6. 上传覆盖率报告（即使测试失败也上传，方便排查）
+      #    覆盖率输出在子项目目录下：apps/cloudflare-backend/coverage/
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: coverage-report-node-${{ matrix.node-version }}
           path: |
-            apps/*/coverage/
+            apps/cloudflare-backend/coverage/
           retention-days: 7
