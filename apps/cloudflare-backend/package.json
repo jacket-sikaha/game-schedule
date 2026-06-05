@@ -5,12 +5,17 @@
 	"scripts": {
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev --ip 0.0.0.0",
-		"types": "wrangler types"
+		"types": "wrangler types",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"build": "wrangler deploy --dry-run",
+		"type-check": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20260531.1",
 		"typescript": "^5.9.3",
-		"wrangler": "^4.95.0"
+		"wrangler": "^4.95.0",
+		"vitest": "*"
 	},
 	"dependencies": {
 		"@types/node": "^24.12.4",

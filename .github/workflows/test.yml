@@ -20,8 +20,6 @@ jobs:
 
       # 2. 安装 pnpm（版本取自 package.json 的 packageManager 字段）
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       # 3. 安装 Node
       - uses: actions/setup-node@v4
