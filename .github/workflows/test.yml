@@ -29,7 +29,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
-      # 4. 安装依赖（--frozen-lockfile 确保锁文件一致性）
+      # 4. 安装依赖（--frozen-lockfile 确保锁文件一致性，monorepo 全局只有根目录一个锁文件）
       - run: pnpm install --frozen-lockfile
 
       # 5. 运行测试 + 覆盖率
