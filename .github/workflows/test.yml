@@ -1,0 +1,49 @@
+name: Test
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # Node 版本矩阵——如果只想测当前版本，删掉 strategy 整段
+    strategy:
+      matrix:
+        node-version: [20, 22]
+
+    steps:
+      # 1. 拉代码
+      - uses: actions/checkout@v4
+
+      # 2. 安装 pnpm（版本取自 package.json 的 packageManager 字段）
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      # 3. 安装 Node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      # 4. 安装依赖（--frozen-lockfile 确保锁文件一致性）
+      - run: pnpm install --frozen-lockfile
+
+      # 5. 运行测试 + 覆盖率
+      #    -- 后面的 --coverage 传递给 vitest
+      #    CI=true 时 vitest 自动：启用重试、生成 JUnit 报告
+      - run: pnpm test -- --coverage
+        env:
+          CI: true
+
+      # 6. 上传覆盖率报告（即使测试失败也上传，方便排查）
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report-node-${{ matrix.node-version }}
+          path: |
+            apps/*/coverage/
+          retention-days: 7
