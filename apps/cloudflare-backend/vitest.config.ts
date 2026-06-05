@@ -51,6 +51,9 @@ export default defineConfig({
                 'src/**/*.d.ts',
                 'src/__tests__/**',
                 'src/common/redis-pool.ts',   // 已废弃的旧代码
+                'src/common/redis.ts',         // Redis 连接客户端，需集成环境
+                'src/index.ts',                // Worker 入口胶水代码
+                'src/router.ts',               // HTTP 路由，需 miniflare 集成测试
             ],
             // 覆盖率门槛：不达标 → 测试失败 → CI 不通过
             thresholds: {

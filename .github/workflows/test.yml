@@ -49,5 +49,5 @@ jobs:
           # 工件名称（自定义，方便下载区分）
           name: coverage-report-node-${{ matrix.node-version }}
           # 核心：直接写 目录路径 即可上传整个目录
-          path: ./coverage/
+          path: ./apps/cloudflare-backend/coverage/
           retention-days: 7
