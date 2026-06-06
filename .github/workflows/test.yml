@@ -12,6 +12,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     # Node 版本矩阵——如果只想测当前版本，删掉 strategy 整段
     strategy:
       matrix:
@@ -19,7 +21,7 @@ jobs:
 
     steps:
       # 1. 拉代码
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       # 2. 安装 pnpm（版本取自 package.json 的 packageManager 字段）
       - uses: pnpm/action-setup@v4
@@ -50,3 +52,12 @@ jobs:
           # 核心：直接写 目录路径 即可上传整个目录
           path: apps/cloudflare-backend/coverage/
           retention-days: 7
+
+      - uses: actions/upload-artifact@v7
+        id: upload-report
+        with:
+          name: vitest-report
+          path: apps/cloudflare-backend/html/
+
+      - name: Viewer link in summary
+        run: echo "[View HTML report](https://viewer.vitest.dev/?url=${{ steps.upload-report.outputs.artifact-url }})" >> $GITHUB_STEP_SUMMARY
