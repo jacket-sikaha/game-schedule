@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from 'vitest/config'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -39,6 +39,8 @@ export default defineConfig({
 
         // ── 覆盖率（四件事：provider、报告格式、排除项、门槛）──
         coverage: {
+            // 开启覆盖率统计
+            enabled: true,
             provider: 'v8',
             // text: 终端输出  html: 浏览器看  lcov: CI 工具消费
             reporter: ['text', 'html', 'lcov'],
@@ -64,10 +66,12 @@ export default defineConfig({
             },
         },
 
-        // ── 报告器（CI 时生成 JUnit XML，方便 Jenkins/GitLab 读取）──
+        // ── 报告器 ──
+        // 继承 vitest 智能默认（本地 default，GitHub Actions 自动加 github-actions）
+        // CI 时额外追加 junit 生成 XML 报告，给 Actions 面板消费
         reporters: process.env.CI
-            ? ['junit', 'verbose']
-            : ['verbose'],
+            ? ['junit', ...configDefaults.reporters]
+            : ['html', ...configDefaults.reporters],
         outputFile: process.env.CI
             ? { junit: './coverage/junit.xml' }
             : undefined,

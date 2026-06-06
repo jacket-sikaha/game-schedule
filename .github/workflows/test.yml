@@ -33,12 +33,8 @@ jobs:
       # 4. 安装依赖（--frozen-lockfile 确保锁文件一致性，monorepo 全局只有根目录一个锁文件）
       - run: pnpm install --frozen-lockfile
 
-      # 5. 运行测试 + 覆盖率
-      #    -- 后面的 --coverage 传递给 vitest
-      #    CI=true 时 vitest 自动：启用重试、生成 JUnit 报告
-      - run: pnpm test -- --coverage
-        env:
-          CI: true
+      # 5. 运行测试 + 覆盖率（turbo 编排，--filter 只跑有变更的项目）
+      - run: pnpm turbo run test --filter="@game-calendar/cloudflare-backend"
 
       # 5.5 调试：列出覆盖率文件位置
       - run: |
@@ -46,7 +42,7 @@ jobs:
 
       # 6. 上传覆盖率报告（即使测试失败也上传，方便排查）
       #    覆盖率输出在子项目目录下：apps/cloudflare-backend/coverage/
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           # 工件名称（自定义，方便下载区分）

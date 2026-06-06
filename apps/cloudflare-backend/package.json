@@ -7,7 +7,7 @@
 		"dev": "wrangler dev --ip 0.0.0.0",
 		"types": "wrangler types",
 		"test": "vitest run",
-		"test:watch": "vitest",
+		"test:watch": "vitest --ui",
 		"build": "wrangler deploy --dry-run",
 		"type-check": "tsc --noEmit"
 	},
