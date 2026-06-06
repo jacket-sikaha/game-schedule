@@ -70,7 +70,7 @@ export default defineConfig({
         // 继承 vitest 智能默认（本地 default，GitHub Actions 自动加 github-actions）
         // CI 时额外追加 junit 生成 XML 报告，给 Actions 面板消费
         reporters: process.env.CI
-            ? ['junit', ...configDefaults.reporters]
+            ? ['html', 'junit', ...configDefaults.reporters]
             : ['html', ...configDefaults.reporters],
         outputFile: process.env.CI
             ? { junit: './coverage/junit.xml' }
