@@ -8,7 +8,7 @@ import { GamekeeData } from './gamekee/DataType';
 import { handleGamekeeEvent } from './gamekee/util';
 import { getPunishingEvent, getWutheringWavesEvent } from './kuro-game/util';
 import { getSnowBreakEventData } from './snowbreak/util';
-import { parseActivities } from './endfield';
+import { getActivities } from './endfield';
 
 // create the CORS pair
 const { preflight, corsify } = cors({
@@ -28,11 +28,11 @@ export type CFArgs = [Env, ExecutionContext];
 
 const router = AutoRouter<IRequest, CFArgs>({
 	before: [preflight], // <-- put preflight upstream
-	finally: [corsify, destroyRedisClient], // <-- put corsify downstream
+	finally: [corsify], // <-- put corsify downstream
 });
 
 router
-	.all('*', checkCacheResults)
+	// .all('*', checkCacheResults)
 	// GET todos - just return some data!
 	.get('/todos', (_, env, ctx) => env.VITE_PCR_API)
 
@@ -178,23 +178,10 @@ router
 
 	.get('/endfield', async (_, env, ctx): Promise<CalendarActivityResult> => {
 		try {
-			const data = await fetch(env.VITE_ENDFIELD_API, {
-				method: 'GET',
-				headers:
-				{
-					"Accept": "*/*",
-					"Host": "end.wiki",
-					// insomnia/2024.1.0
-					// apifox/1.0.0 (https://apifox.com)
-					// PostmanRuntime/7.36.0
-					'User-Agent': 'PostmanRuntime/7.36.0',
-				},
-				redirect: 'follow'
-			});
-			const activities = parseActivities(await data.text());
+			const data = await getActivities(env.VITE_ENDFIELD_API);
 			return {
 				code: 200,
-				data: activities,
+				data,
 			};
 		} catch (error: any) {
 			throw new StatusError(500, error.message);
