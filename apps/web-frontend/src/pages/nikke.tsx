@@ -20,7 +20,10 @@ function Nikke() {
       setEventData(
         data?.data?.data
           ?.filter((item: CalendarActivity) => {
-            return Boolean(item.start_time);
+            return (
+              Boolean(item.start_time) &&
+              !dayjs(item.end_time).isBefore(dayjs())
+            );
           })
           .map((item: CalendarActivity) => ({
             ...item,
