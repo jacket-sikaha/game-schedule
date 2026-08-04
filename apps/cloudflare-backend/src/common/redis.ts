@@ -9,7 +9,7 @@ export const getRedis = () =>
 	new Redis({
 		username: 'default',
 		password: env.REDIS_PASSWD,
-		host: 'redis-19292.crce178.ap-east-1-1.ec2.redns.redis-cloud.com',
+		host: 'redis-19292.crce178.ap-east-1-1.ec2.cloud.redislabs.com',
 		port: 19292,
 		retryStrategy(times) {
 			const delay = Math.min(times * 50, 2000);

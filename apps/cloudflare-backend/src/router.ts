@@ -28,11 +28,11 @@ export type CFArgs = [Env, ExecutionContext];
 
 const router = AutoRouter<IRequest, CFArgs>({
 	before: [preflight], // <-- put preflight upstream
-	finally: [corsify], // <-- put corsify downstream
+	finally: [corsify, destroyRedisClient], // <-- put corsify downstream
 });
 
 router
-	// .all('*', checkCacheResults)
+	.all('*', checkCacheResults)
 	// GET todos - just return some data!
 	.get('/todos', (_, env, ctx) => env.VITE_PCR_API)
 
