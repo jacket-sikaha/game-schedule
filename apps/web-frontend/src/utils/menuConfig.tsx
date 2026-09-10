@@ -7,6 +7,7 @@ import {
   FGO,
   Genshin,
   Nikke,
+  NTE,
   Pns,
   SnowBreak,
   StarRail,
@@ -86,6 +87,12 @@ export const menuList: menuItem[] = [
     path: '/endfield',
     icon: 'https://bbs.hycdn.cn/image/common/20260417/2641152/69e12fbefe4a20e7c0d83e4e_f1525633.png',
     element: <EndField />
+  },
+  {
+    name: '异环',
+    path: '/nte',
+    icon: 'https://img-tc.tapimg.com/market/images/ec0bd50c4a0bafa60cde8d0f3775ee84.png/_tap_appicon.jpg',
+    element: <NTE />
   }
 
   // {
