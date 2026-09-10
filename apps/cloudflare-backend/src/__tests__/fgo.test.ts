@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { getImgBanner, html2Str, getFGOEventWithDetailTime } from '../fgo/util'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { getFGOEventWithDetailTime, getImgBanner, html2Str } from '../fgo/util'
 
 // 注意 getFGOEventWithDetailTime 内部会调用 fetch，这里我们 mock 全局 fetch
 const mockFetch = vi.fn()

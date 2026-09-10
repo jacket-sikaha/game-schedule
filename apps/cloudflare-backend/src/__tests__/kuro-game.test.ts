@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { getWutheringWavesEvent, getPunishingEvent } from '../kuro-game/util'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { getPunishingEvent, getWutheringWavesEvent } from '../kuro-game/util'
 
 const mockFetch = vi.fn()
 vi.stubGlobal('fetch', mockFetch)

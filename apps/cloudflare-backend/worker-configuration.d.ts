@@ -16,6 +16,7 @@ interface __BaseEnv_Env {
 	VITE_NIKKE_API: "https://www.gamekee.com/v1/activity/page-list?importance=0&sort=-1&keyword=&limit=999&page_no=1&serverId=19&status=0";
 	VITE_SNOWBREAK_API: "https://www.cbjq.com/api.php?op=search_api&action=get_article_list&catid=7131&page=1&num=16&order_by=inputtime";
 	VITE_ENDFIELD_API: "https://api.fz.wiki/api/v1/articles/by-title?ns=0&title=活动&withRevision=1";
+	VITE_NTE_API: "https://bbs-api.tajiduo.com/bbs/wapi/getOfficialPostList?columnId=4&count=20&version=0&officialType=1";
 	REDIS_PASSWD: "xxxxxxxxxxxxxx";
 }
 declare namespace Cloudflare {

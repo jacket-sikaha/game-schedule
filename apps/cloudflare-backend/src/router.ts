@@ -9,6 +9,7 @@ import { handleGamekeeEvent } from './gamekee/util';
 import { getPunishingEvent, getWutheringWavesEvent } from './kuro-game/util';
 import { getSnowBreakEventData } from './snowbreak/util';
 import { getActivities } from './endfield';
+import { getNteEventData } from './nte/util';
 
 // create the CORS pair
 const { preflight, corsify } = cors({
@@ -28,6 +29,7 @@ export type CFArgs = [Env, ExecutionContext];
 
 const router = AutoRouter<IRequest, CFArgs>({
 	before: [preflight], // <-- put preflight upstream
+	// finally: [corsify], // <-- put corsify downstream
 	finally: [corsify, destroyRedisClient], // <-- put corsify downstream
 });
 
@@ -179,6 +181,18 @@ router
 	.get('/endfield', async (_, env, ctx): Promise<CalendarActivityResult> => {
 		try {
 			const data = await getActivities(env.VITE_ENDFIELD_API);
+			return {
+				code: 200,
+				data,
+			};
+		} catch (error: any) {
+			throw new StatusError(500, error.message);
+		}
+	})
+
+	.get('/nte', async (_, env, ctx): Promise<CalendarActivityResult> => {
+		try {
+			const data = await getNteEventData(env.VITE_NTE_API);
 			return {
 				code: 200,
 				data,
