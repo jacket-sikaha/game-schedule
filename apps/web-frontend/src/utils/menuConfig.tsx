@@ -11,7 +11,8 @@ import {
   Pns,
   SnowBreak,
   StarRail,
-  WutheringWaves
+  WutheringWaves,
+  Zzz
 } from './menuData';
 
 export const menuList: menuItem[] = [
@@ -32,6 +33,12 @@ export const menuList: menuItem[] = [
     path: '/starrail',
     icon: 'https://upload-bbs.mihoyo.com/upload/2022/04/28/dc4106543564d1a372b47f5a3cf15958_994599019851288826.png?x-oss-process=image/resize,s_150/quality,q_80/auto-orient,0/interlace,1/format,jpg',
     element: <StarRail />
+  },
+  {
+    name: '绝区零',
+    path: '/zzz',
+    icon: 'https://bbs-static.miyoushe.com/static/2026/07/22/4bdbefc1cd8d95ecbfd7b0ed3f2f951b_6202628209618524593.png?x-oss-process=image%2Fquality%2CQ_85%2Fformat%2Cjpg',
+    element: <Zzz />
   },
   {
     name: 'FGO',

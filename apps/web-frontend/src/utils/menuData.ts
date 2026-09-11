@@ -6,6 +6,7 @@ import { lazy } from "react";
 
 export const Genshin = lazy(() => import("@/pages/Genshin"));
 export const StarRail = lazy(() => import("@/pages/StarRail"));
+export const Zzz = lazy(() => import("@/pages/zzz"));
 export const FGO = lazy(() => import("@/pages/FGO"));
 export const Arknights = lazy(() => import("@/pages/Arknights"));
 export const WutheringWaves = lazy(() => import("@/pages/wuthering-waves"));
