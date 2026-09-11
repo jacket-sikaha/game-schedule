@@ -2,5 +2,12 @@ packages:
   - apps/*
   - packages/*
 
+# pnpm 12 新增 allowBuilds 声明：与原 ignoredBuiltDependencies 保持一致，全部禁止构建脚本
+# （esbuild 走预编译平台包无需 postinstall；sharp/workerd 仅本地开发可选）
+allowBuilds:
+  esbuild: false
+  sharp: false
+  workerd: false
+
 ignoredBuiltDependencies:
   - esbuild

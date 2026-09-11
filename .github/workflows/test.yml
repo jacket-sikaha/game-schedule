@@ -23,8 +23,11 @@ jobs:
       # 1. 拉代码
       - uses: actions/checkout@v6
 
-      # 2. 安装 pnpm（版本取自 package.json 的 packageManager 字段）
+      # 2. 安装 pnpm（显式指定主版本；package.json 已移除 packageManager 钉版字段，
+      #    Corepack/action-setup 均不支持范围版本，版本由此处统一定义）
       - uses: pnpm/action-setup@v4
+        with:
+          version: 12
 
       # 3. 安装 Node
       - uses: actions/setup-node@v4
