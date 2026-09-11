@@ -75,11 +75,19 @@ export const getActivities = async (url: string): Promise<CalendarActivityResult
         const activityNode = contentNodes.find(
             (node: any) => node.type === 'endfieldCardActivityIndex'
         );
-        if (!activityNode?.attrs?.activities) {
+        if (!activityNode?.content) {
             return [];
         }
 
-        const wikiActivities: WikiActivity[] = activityNode.attrs.activities;
+        // Activities are nested child nodes of type 'endfieldCardActivityIndex__activities',
+        // each carrying its own data in .attrs (not in activityNode.attrs.activities).
+        const wikiActivities: WikiActivity[] = (activityNode.content as any[])
+            .filter((node: any) => node.type === 'endfieldCardActivityIndex__activities')
+            .map((node: any) => node.attrs)
+            .filter(Boolean);
+        if (wikiActivities.length === 0) {
+            return [];
+        }
 
         return wikiActivities
             .map((act) => {
