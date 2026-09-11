@@ -25,11 +25,9 @@ jobs:
           echo "🔹 是否为 CI 环境: $CI"
 
       - name: Install pnpm
+        # pnpm 版本由 package.json 的 packageManager 字段统一指定（当前 pnpm@12.3.4），
+        # action-setup@v4 会自动读取该字段，此处不再显式设置 version，避免冲突
         uses: pnpm/action-setup@v4
-        with:
-          # 显式指定主版本（package.json 已移除 packageManager 钉版字段，
-          # Corepack/action-setup 均不支持范围版本，版本由此处统一定义）
-          version: 12
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
