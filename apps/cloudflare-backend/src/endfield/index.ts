@@ -51,6 +51,11 @@ interface WikiActivity {
     activityId: string;
     timeRanges: WikiTimeRange[];
     tabImgColor: string;
+    // Newer revisions expose a calendar-specific range alongside the activity range.
+    calendarRange?: WikiTimeRange;
+    calendarTag?: string;
+    calendarTitle?: string;
+    calendarCategory?: string;
 }
 
 function parseWikiTime(timeStr: string): dayjs.Dayjs | null {
@@ -79,19 +84,30 @@ export const getActivities = async (url: string): Promise<CalendarActivityResult
             return [];
         }
 
-        // Activities are nested child nodes of type 'endfieldCardActivityIndex__activities',
-        // each carrying its own data in .attrs (not in activityNode.attrs.activities).
+        // Child nodes appear in two shapes across upstream revisions:
+        //   legacy:  { type: 'endfieldCardActivityIndex__activities', attrs: { name, timeRanges, ... } }
+        //   current: { type: 'wikiCardItem', attrs: { itemType: 'endfieldCardActivityIndex__activities',
+        //                                              data: { name, timeRanges, ... } } }
+        // Identify activity nodes by node.type OR attrs.itemType, then unwrap attrs.data when present.
+        const ACTIVITY_ITEM_TYPE = 'endfieldCardActivityIndex__activities';
+        const isActivityNode = (node: any): boolean =>
+            node?.type === ACTIVITY_ITEM_TYPE || node?.attrs?.itemType === ACTIVITY_ITEM_TYPE;
+
         const wikiActivities: WikiActivity[] = (activityNode.content as any[])
-            .filter((node: any) => node.type === 'endfieldCardActivityIndex__activities')
-            .map((node: any) => node.attrs)
-            .filter(Boolean);
+            .filter(isActivityNode)
+            .map((node: any) => node?.attrs?.data ?? node?.attrs)
+            .filter((act: any) => act && typeof act === 'object' && act.name);
         if (wikiActivities.length === 0) {
             return [];
         }
 
         return wikiActivities
             .map((act) => {
-                const timeRange = act.timeRanges?.[0];
+                // Prefer the calendar-specific range when the upstream provides one,
+                // otherwise fall back to the first activity time range.
+                const calendarRange = act.calendarRange;
+                const timeRange =
+                    calendarRange?.open ? calendarRange : act.timeRanges?.[0];
                 if (!timeRange?.open) return null;
 
                 const start = parseWikiTime(timeRange.open);
@@ -101,14 +117,19 @@ export const getActivities = async (url: string): Promise<CalendarActivityResult
 
                 return {
                     id: act.activityId,
-                    title: act.name,
+                    title: act.calendarTitle || act.name,
                     start_time: start.format(TIME_FORMAT),
                     end_time: end
                         ? end.format(TIME_FORMAT)
                         : dayjs().add(5, 'year').format(TIME_FORMAT),
                     banner: act.tabImgUrl,
-                    linkUrl: `${BASE_URL2}/${encodeURIComponent(act.linkTitle)}`,
-                    type: act.tags?.join(', ') || '',
+                    // linkTitle looks like "活动/挽弓试炼·10月15日"; encode per segment so
+                    // the path separator survives (encodeURIComponent would turn it into %2F).
+                    linkUrl: `${BASE_URL2}/${String(act.linkTitle || '')
+                        .split('/')
+                        .map(encodeURIComponent)
+                        .join('/')}`,
+                    type: act.tags?.join(', ') || act.calendarTag || '',
                 };
             })
             .filter(Boolean) as CalendarActivityResult['data'];
