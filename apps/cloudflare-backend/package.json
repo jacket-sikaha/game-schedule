@@ -3,19 +3,19 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"deploy": "wrangler deploy",
-		"dev": "wrangler dev --ip 0.0.0.0",
-		"types": "wrangler types",
+		"deploy": "node scripts/wrangler.mjs deploy",
+		"dev": "node scripts/wrangler.mjs dev --ip 0.0.0.0",
+		"types": "node scripts/wrangler.mjs types",
 		"test": "vitest run",
 		"test:watch": "vitest --ui",
-		"build": "wrangler deploy --dry-run",
+		"build": "node scripts/wrangler.mjs deploy --dry-run",
 		"type-check": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20260531.1",
+		"@cloudflare/workers-types": "^5.20260926.1",
 		"typescript": "^5.9.3",
-		"wrangler": "^4.95.0",
-		"vitest": "*"
+		"wrangler": "4.142.0",
+		"vitest": "^4.1.8"
 	},
 	"dependencies": {
 		"@types/node": "^24.12.4",
