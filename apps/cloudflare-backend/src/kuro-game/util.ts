@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { stableId } from '@/common';
 import { CatalogueData, KuroWikiGameData } from './DataType';
 
 // wuthering-waves
@@ -41,7 +41,9 @@ export const getWutheringWavesEvent = async (env: Env) => {
 				contentUrl: banner,
 			} = item;
 			const [start_time, end_time] = countDown!.dateRange;
-			return { id: entryId ?? dayjs().unix(), title, start_time, end_time, banner: imgMap.get(+(entryId ?? 0)) ?? banner, linkUrl };
+			// entryId 缺失时不再用当前时间戳兜底（会导致订阅刷新后 id 全变）；
+			// 标题参与 hash，同时打散上游同 entryId 的重复条目（实测存在）
+			return { id: stableId('mc', entryId, title), title, start_time, end_time, banner: imgMap.get(+(entryId ?? 0)) ?? banner, linkUrl };
 		});
 };
 
@@ -61,7 +63,7 @@ export const getPunishingEvent = async (url: string) => {
 	}
 	return target?.content
 		.filter(({ countDown }) => !!countDown)
-		.map((item, i) => {
+		.map((item) => {
 			const {
 				countDown,
 				title,
@@ -69,6 +71,7 @@ export const getPunishingEvent = async (url: string) => {
 				contentUrl: banner,
 			} = item;
 			const [start_time, end_time] = countDown!.dateRange;
-			return { id: entryId ?? i, title, start_time, end_time, banner };
+			// entryId 缺失时不再用数组下标兜底（上游调整条目顺序会导致 id 漂移）
+			return { id: stableId('pns', entryId, title), title, start_time, end_time, banner };
 		});
 };

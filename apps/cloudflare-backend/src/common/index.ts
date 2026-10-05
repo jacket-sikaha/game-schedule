@@ -22,6 +22,36 @@ export declare interface CalendarActivityResult {
 
 export const TIME_FORMAT = 'YYYY-MM-DD HH:mm';
 
+/**
+ * 确定性活动 ID —— iCal 订阅 UID 稳定性的前置条件。
+ *
+ * 同一活动（gameKey + 上游 id + 标题）必须始终生成相同 id，
+ * 绝不使用随机数 / 当前时间戳 / 数组下标兜底（见 docs/research/ical-feasibility.md §5.2：
+ * 随机/时间戳 id 会导致订阅客户端每次刷新复制出一整套新事件）。
+ *
+ * 设计要点：
+ * - 标题参与 hash：上游存在同 entryId 的多条活动（鸣潮实测 id 重复）、
+ *   以及缺失 entryId 的条目（战双实测），标题能把它们区分开。
+ * - 标题做空白符归一化（含全角空格），避免上游微调排版导致 id 漂移。
+ * - 用同步 FNV-1a 而非 crypto.subtle：后者是异步 API，无法在同步 map 回调中使用；
+ *   该实现与 docs/research/prototype/ics.mjs 中已验证的 makeUid 保持一致。
+ */
+export const stableId = (
+	gameKey: string,
+	upstreamId: number | string | null | undefined,
+	title: string,
+): string => {
+	const normalizeTitle = (s: string) =>
+		s.replace(/\s+/g, ' ').replace(/\u3000/g, ' ').trim().toLowerCase();
+	const raw = `${gameKey}:${upstreamId ?? ''}:${normalizeTitle(String(title ?? ''))}`;
+	let h = 0x811c9dc5;
+	for (let i = 0; i < raw.length; i++) {
+		h ^= raw.charCodeAt(i);
+		h = Math.imul(h, 0x01000193) >>> 0;
+	}
+	return `${gameKey}_${h.toString(16).padStart(8, '0')}`;
+};
+
 export const getShanghaiDate = (date?: dayjs.ConfigType) => dayjs(date).tz('Asia/Shanghai');
 
 export const checkCacheResults: RequestHandler<IRequest, CFArgs> = async (request: IRequest, env, ctx) => {

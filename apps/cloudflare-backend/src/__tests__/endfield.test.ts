@@ -63,6 +63,19 @@ describe('endfield', () => {
       expect(parseActivities(html)).toHaveLength(2)
     })
 
+    it('同一 HTML 两次解析得到相同 id（确定性，不使用随机数）', () => {
+      const html = `
+        <a class="activity-card" data-open="1717200000000" data-close="1717800000000" href="/zh-Hans/activities/event-1">
+          <span class="activity-card-name">限时活动</span>
+        </a>
+      `
+      const r1 = parseActivities(html)
+      const r2 = parseActivities(html)
+
+      expect(r1[0].id).toBe(r2[0].id)
+      expect(r1[0].id).toMatch(/^endfield_[0-9a-f]{8}$/)
+    })
+
     it('href 为空时 linkUrl 也为空', () => {
       const html = `
         <a class="activity-card" data-open="1717200000000" data-close="1717800000000" href="">

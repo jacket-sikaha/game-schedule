@@ -1,4 +1,4 @@
-import { CalendarActivityResult, TIME_FORMAT } from '@/common';
+import { CalendarActivityResult, stableId, TIME_FORMAT } from '@/common';
 import * as cheerio from 'cheerio';
 import dayjs from 'dayjs';
 
@@ -15,8 +15,14 @@ export function parseActivities(html: string): CalendarActivityResult['data'] {
             if (!open) return null;
             const href = $card.attr('href') || '';
             const img = $card.find('img').attr('src') || '';
+            const title =
+                $card.find('.activity-card-name').text().trim() ||
+                $card.find('img').attr('alt') ||
+                '';
             return {
-                id: Math.random().toString(36),
+                // 上游 HTML 卡片没有稳定 id，用「开始时间戳 + 标题」确定性生成，
+                // 保证同一活动每次解析得到相同 id（订阅 UID 稳定性的前置条件）
+                id: stableId('endfield', open, title),
                 type: $card.attr('data-type') || '',
                 start_time: dayjs(Number(open)).format(TIME_FORMAT),
                 end_time: $card.attr('data-close')
@@ -26,10 +32,7 @@ export function parseActivities(html: string): CalendarActivityResult['data'] {
                     ? new URL(href, BASE_URL).toString()
                     : '',
                 banner: img,
-                title:
-                    $card.find('.activity-card-name').text().trim() ||
-                    $card.find('img').attr('alt') ||
-                    '',
+                title,
             };
         })
         .get()
