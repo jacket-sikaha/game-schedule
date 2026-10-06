@@ -1,7 +1,7 @@
-﻿import dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { getImgBanner } from '../fgo/util';
 import { AKData, AKEventData } from './DataType';
-import { TIME_FORMAT } from '@/common';
+import { stableId, TIME_FORMAT } from '@/common';
 
 const titleReg = /[一二三四五六七八九十]{1,2}、[^一二三四五六七八九十]+?(?=活动时间：)/gm;
 const timeReg = /[一二三四五六七八九十]{1,2}、[^一二三四五六七八九十]+?活动时间：.+?-.+?\d{1,2}:\d{2}/gm;
@@ -39,7 +39,9 @@ const getAKEventDetail = async (url: string) => {
 			}
 			const tmp = html?.find((str) => str.includes(title));
 			const banner = (tmp && getImgBanner(tmp)) || '';
-			return { id: `${data.cid}${i}`, title, start_time, end_time, banner, linkUrl: data.jumpLink, displayTime: data.displayTime };
+			// cid 是公告 ID、同公告多活动共用，下标 i 会随上游增删漂移；
+			// 用 stableId(cid, title) 让标题参与 hash，同公告内各活动 id 稳定且互不冲突
+			return { id: stableId('ak', data.cid, title), title, start_time, end_time, banner, linkUrl: data.jumpLink, displayTime: data.displayTime };
 		}) ?? [];
 	return event?.filter((item) => item !== null);
 };

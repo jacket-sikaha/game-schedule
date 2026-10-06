@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { stripHtmlTags, parseStrToTime, getAKEventWithDetailTime } from '../Arknights/util';
+import { stableId } from '../common';
 
 describe('Arknights/util', () => {
 	// ═══════════════ stripHtmlTags ═══════════════
@@ -136,7 +137,7 @@ describe('Arknights/util', () => {
 			const result = await getAKEventWithDetailTime('https://api.example.com/list', 'https://api.example.com/detail');
 
 			expect(result).toHaveLength(1);
-			expect(result[0].id).toBe('evt_0010');
+			expect(result[0].id).toBe(stableId('ak', 'evt_001', '一、限时掉落活动'));
 			expect(result[0].title).toBe('一、限时掉落活动');
 			expect(result[0].start_time).toBe('2025-12-23 16:10');
 			expect(result[0].end_time).toBe('2026-01-02 04:10');
@@ -164,8 +165,8 @@ describe('Arknights/util', () => {
 			const result = await getAKEventWithDetailTime('https://api.example.com/list', 'https://api.example.com/detail');
 
 			expect(result).toHaveLength(2);
-			expect(result[0].id).toBe('evt_0010');
-			expect(result[1].id).toBe('evt_0020');
+			expect(result[0].id).toBe(stableId('ak', 'evt_001', '一、限时掉落活动'));
+			expect(result[1].id).toBe(stableId('ak', 'evt_002', '一、签到活动'));
 		});
 
 		it('过滤非 category=1 的活动', async () => {
@@ -183,7 +184,7 @@ describe('Arknights/util', () => {
 
 			// 只有 evt_001 (category=1) 被保留
 			expect(result).toHaveLength(1);
-			expect(result[0].id).toBe('evt_0010');
+			expect(result[0].id).toBe(stableId('ak', 'evt_001', '一、限时掉落活动'));
 		});
 
 		it('活动详情 content 为空时返回空数组', async () => {
