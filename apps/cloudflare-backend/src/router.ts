@@ -11,6 +11,7 @@ import { getSnowBreakEventData } from './snowbreak/util';
 import { getActivities } from './endfield';
 import { getNteEventData } from './nte/util';
 import { getZzzEventData } from './zzz/util';
+import { getUmamusumeEventData } from './umamusume/util';
 
 // create the CORS pair
 const { preflight, corsify } = cors({
@@ -211,6 +212,20 @@ router
 				data,
 			};
 		} catch (error: any) {
+			throw new StatusError(500, error.message);
+		}
+	})
+
+	.get('/umamusume', async (_, env, ctx): Promise<CalendarActivityResult> => {
+		try {
+			const data = await getUmamusumeEventData(env.VITE_UMAMUSUME_API);
+			console.log('data:', data);
+			return {
+				code: 200,
+				data,
+			};
+		} catch (error: any) {
+			console.log('error:', error);
 			throw new StatusError(500, error.message);
 		}
 	})

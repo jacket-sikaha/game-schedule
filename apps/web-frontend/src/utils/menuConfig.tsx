@@ -12,7 +12,8 @@ import {
   SnowBreak,
   StarRail,
   WutheringWaves,
-  Zzz
+  Zzz,
+  Umamusume
 } from './menuData';
 
 export const menuList: menuItem[] = [
@@ -100,6 +101,12 @@ export const menuList: menuItem[] = [
     path: '/nte',
     icon: 'https://img-tc.tapimg.com/market/images/ec0bd50c4a0bafa60cde8d0f3775ee84.png/_tap_appicon.jpg',
     element: <NTE />
+  },
+  {
+    name: '闪耀！优俊少女',
+    path: '/umamusume',
+    icon: 'https://tiebapic.baidu.com/forum/pic/item/f08d9b188618367ad6b1501e6b738bd4b21ce512.jpg?tbpicau=2026-12-02-05_c36abf48083b9863da8e5ad61bfd915b',
+    element: <Umamusume />
   }
 
   // {

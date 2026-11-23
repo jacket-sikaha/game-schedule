@@ -42,6 +42,7 @@ VITE_SNOWBREAK_API = "https://www.cbjq.com/api.php?op=search_api&action=get_arti
 VITE_ENDFIELD_API = "https://api.fz.wiki/api/v1/articles/by-title?ns=0&title=活动&withRevision=1"
 VITE_NTE_API = "https://bbs-api.tajiduo.com/bbs/wapi/getOfficialPostList?columnId=4&count=20&version=0&officialType=1"
 VITE_ZZZ_API = "https://announcement-api.mihoyo.com/common/nap_cn/announcement/api/getAnnList?game=nap&game_biz=nap_cn&lang=zh-cn&bundle_id=nap_cn&channel_id=1&level=60&platform=pc&region=prod_gf_cn&uid=10000000"
+VITE_UMAMUSUME_API = "https://cron.sikaha.dpdns.org/api/umamusume"
 
 REDIS_PASSWD = 'xxxxxxxxxxxxxx'
 

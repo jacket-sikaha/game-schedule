@@ -17,3 +17,4 @@ export const BaJp = lazy(() => import("@/pages/ba-jp"));
 export const SnowBreak = lazy(() => import("@/pages/snow-break"));
 export const EndField = lazy(() => import("@/pages/end-field"));
 export const NTE = lazy(() => import("@/pages/nte"));
+export const Umamusume = lazy(() => import("@/pages/umamusume"));
