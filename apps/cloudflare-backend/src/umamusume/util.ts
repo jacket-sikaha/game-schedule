@@ -88,7 +88,6 @@ export const handleUmamusumeNews = (items: UmamusumeNewsItem[]) => {
 				start_time: start.format(TIME_FORMAT),
 				end_time: end.format(TIME_FORMAT),
 				banner: getBanner(item.content),
-				range: cheerio.load(item.content, null, false).text().slice(0, 120),
 				publishTime: item.displayTime || item.modifyTime || item.createTime,
 				linkUrl: linkUrl(item.id),
 			};
