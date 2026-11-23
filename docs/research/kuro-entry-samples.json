@@ -1,0 +1,594 @@
+[
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 0,
+    "title": "团团勇者大乱斗",
+    "entryId": "1554468927538642944",
+    "hasCountDown": true,
+    "range": [
+      "2026-09-30 11:00",
+      "2026-11-11 11:59"
+    ],
+    "linkType": 1,
+    "linkUrl": "https://www.kurobbs.com/mc/post/1498788444415365120"
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 1,
+    "title": "朝月赠礼",
+    "entryId": "1554470022016704512",
+    "hasCountDown": true,
+    "range": [
+      "2026-09-30 11:00",
+      "2026-11-11 03:59"
+    ],
+    "linkType": 1,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 2,
+    "title": "梦构匣中",
+    "entryId": "1554474219214774272",
+    "hasCountDown": true,
+    "range": [
+      "2026-09-30 11:00",
+      "2026-11-11 03:59"
+    ],
+    "linkType": 1,
+    "linkUrl": "https://www.kurobbs.com/mc/post/1498788444415365120"
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 3,
+    "title": "索拉里斯回归邀约",
+    "entryId": "1554478261937029120",
+    "hasCountDown": true,
+    "range": [
+      "2026-09-30 11:00",
+      "2026-11-11 23:59"
+    ],
+    "linkType": 1,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 4,
+    "title": "天工寻物",
+    "entryId": "1554475345910087680",
+    "hasCountDown": true,
+    "range": [
+      "2026-10-08 04:00",
+      "2026-10-26 03:59"
+    ],
+    "linkType": 1,
+    "linkUrl": "https://www.kurobbs.com/mc/post/1498788444415365120"
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 5,
+    "title": "朝月鱼涌",
+    "entryId": "1554477722964770816",
+    "hasCountDown": true,
+    "range": [
+      "2026-10-15 10:00",
+      "2026-11-01 09:59"
+    ],
+    "linkType": 1,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 6,
+    "title": "凭栏听雨之礼",
+    "entryId": "1554471705073459200",
+    "hasCountDown": true,
+    "range": [
+      "2026-10-22 10:00",
+      "2026-11-11 03:59"
+    ],
+    "linkType": 1,
+    "linkUrl": "https://www.kurobbs.com/mc/post/1498788444415365120"
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 7,
+    "title": "无音消除",
+    "entryId": "1554476688347631616",
+    "hasCountDown": true,
+    "range": [
+      "2026-10-22 10:00",
+      "2026-11-09 03:59"
+    ],
+    "linkType": 1,
+    "linkUrl": "https://www.kurobbs.com/mc/post/1498788444415365120"
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 8,
+    "title": "踏潮探历・玄方地界",
+    "entryId": "1554477236660387840",
+    "hasCountDown": true,
+    "range": [
+      "2026-10-29 04:00",
+      "2026-11-11 03:59"
+    ],
+    "linkType": 1,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 9,
+    "title": "回音盈域",
+    "entryId": "1554479052247040000",
+    "hasCountDown": true,
+    "range": [
+      "2026-10-15 04:00",
+      "2026-10-22 03:59"
+    ],
+    "linkType": 1,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 10,
+    "title": "声弦涤荡",
+    "entryId": "1554479052247040000",
+    "hasCountDown": true,
+    "range": [
+      "2026-11-04 04:00",
+      "2026-11-11 03:59"
+    ],
+    "linkType": 1,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 11,
+    "title": "心影映花",
+    "entryId": "1554472701995286528",
+    "hasCountDown": false,
+    "range": null,
+    "linkType": 1,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:版本活动",
+    "idx": 12,
+    "title": "故梦寻契",
+    "entryId": "1554474816727334912",
+    "hasCountDown": false,
+    "range": null,
+    "linkType": 1,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:热门推荐",
+    "idx": 0,
+    "title": "数据终端",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": 2,
+    "linkUrl": "https://web-static.kurobbs.com/events2.0/index.html#/mc-role-box/web"
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:热门推荐",
+    "idx": 1,
+    "title": "签到奖励",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": 2,
+    "linkUrl": "https://web-static.kurobbs.com/events2.0/index.html#/mc-month-sign/web"
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:热门推荐",
+    "idx": 2,
+    "title": "养成计算器",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": 2,
+    "linkUrl": "https://web-static.kurobbs.com/growth-calculator/index.html"
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:热门推荐",
+    "idx": 3,
+    "title": "大地图",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/mc/map?v=2.0"
+  },
+  {
+    "game": "鸣潮",
+    "src": "side:引流组件",
+    "idx": 0,
+    "title": "扫码下载库街区APP",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "mainModules",
+    "idx": 0,
+    "title": "游戏图鉴",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "mainModules",
+    "idx": 1,
+    "title": "攻略合集",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "mainModules",
+    "idx": 2,
+    "title": "剧情合集",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "鸣潮",
+    "src": "mainModules",
+    "idx": 3,
+    "title": "影像收录",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 0,
+    "title": "【远信回响】主线版本",
+    "entryId": null,
+    "hasCountDown": true,
+    "range": [
+      "2026-09-24 11:00",
+      "2026-11-05 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552007307825524736?es=&enter_source=9&i=1790137558306_244260&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 1,
+    "title": "【远信回响】空滞轮旋之梦-联动剧情关卡",
+    "entryId": null,
+    "hasCountDown": true,
+    "range": [
+      "2026-09-29 11:00",
+      "2026-11-03 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552007307825524736?es=&enter_source=9&i=1790137558306_244260&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 2,
+    "title": "【远信回响】执炬者望海-角色试玩关",
+    "entryId": "1539298929044275200",
+    "hasCountDown": true,
+    "range": [
+      "2026-09-24 11:00",
+      "2026-11-05 05:00"
+    ],
+    "linkType": 1,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1538971718508441600?es=&enter_source=10&i=1787042323098_746522&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 3,
+    "title": "【远信回响】溯时者逆洄-角色试玩关",
+    "entryId": null,
+    "hasCountDown": true,
+    "range": [
+      "2026-09-29 11:00",
+      "2026-11-03 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552007307825524736?es=&enter_source=9&i=1790137558306_244260&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 4,
+    "title": "【远信回响】悍猎季风-BOSS挑战",
+    "entryId": null,
+    "hasCountDown": true,
+    "range": [
+      "2026-09-25 10:00",
+      "2026-10-19 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552007307825524736?es=&enter_source=9&i=1790137558306_244260&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 5,
+    "title": "【远信回响】阿德莱德·破渊 新增特效涂装 | 禁隙摧厄",
+    "entryId": null,
+    "hasCountDown": true,
+    "range": [
+      "2026-09-24 11:00",
+      "2026-11-05 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1549861067024306176?es=&enter_source=10&i=1790138296698_756718&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 6,
+    "title": "【远信回响】涅缇娅·亡歌 新增特效涂装 | 旖梦逝影",
+    "entryId": null,
+    "hasCountDown": true,
+    "range": [
+      "2026-09-24 11:00",
+      "2026-11-05 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1549888826120695808?es=&enter_source=10&i=1790138296697_779046&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 7,
+    "title": "【远信回响】洁塔薇·破晓 新增涂装 | 烬色礼典",
+    "entryId": null,
+    "hasCountDown": true,
+    "range": [
+      "2026-09-29 11:00",
+      "2026-11-03 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1549889590150918144?es=&enter_source=10&i=1790138296696_497743&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 8,
+    "title": "【远信回响】「星屿述忆」涂装自选研发活动",
+    "entryId": null,
+    "hasCountDown": true,
+    "range": [
+      "2026-09-26 11:00",
+      "2026-11-05 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552007307825524736?es=&enter_source=9&i=1790137558306_244260&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 9,
+    "title": "【远信回响】回路演算",
+    "entryId": "1527508412139204608",
+    "hasCountDown": true,
+    "range": [
+      "2026-09-24 10:00",
+      "2026-11-04 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552007307825524736?es=&enter_source=9&i=1790137558306_244260&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 10,
+    "title": "【远信回响】超频演算",
+    "entryId": "1539296331237457920",
+    "hasCountDown": true,
+    "range": [
+      "2026-09-29 11:00",
+      "2026-11-05 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552007307825524736?es=&enter_source=9&i=1790137558306_244260&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 11,
+    "title": "【远信回响】忽忽破坏王",
+    "entryId": "1539296738128826368",
+    "hasCountDown": true,
+    "range": [
+      "2026-10-08 10:00",
+      "2026-11-04 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552007307825524736?es=&enter_source=9&i=1790137558306_244260&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 12,
+    "title": "【远信回响】雾夜镇魂曲内容新增",
+    "entryId": "1539297125476995072",
+    "hasCountDown": true,
+    "range": [
+      "2026-09-24 11:00",
+      "2026-11-05 05:00"
+    ],
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552007307825524736?es=&enter_source=9&i=1790137558306_244260&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门活动",
+    "idx": 13,
+    "title": "【歧海循光】疾雷手册",
+    "entryId": "1303806627803844608",
+    "hasCountDown": true,
+    "range": [
+      "2026-01-23 13:00",
+      "2027-01-23 13:00"
+    ],
+    "linkType": 1,
+    "linkUrl": null
+  },
+  {
+    "game": "战双",
+    "src": "side:热门话题",
+    "idx": 0,
+    "title": "远信回响",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552007307825524736?es=&enter_source=10&i=1790231377705_660842&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门话题",
+    "idx": 1,
+    "title": "版本PV",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1547560113272872960?es=&enter_source=10&i=1790231440777_610689&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门话题",
+    "idx": 2,
+    "title": "角色PV",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1552439557335240704?es=&enter_source=10&i=1790231440785_721727&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:热门话题",
+    "idx": 3,
+    "title": "创作征集",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": 2,
+    "linkUrl": "https://www.kurobbs.com/pns/post/1531701978285608960?es=&enter_source=10&i=1787045971171_180215&sn=&si=&scm=&group=&ri="
+  },
+  {
+    "game": "战双",
+    "src": "side:引流组件",
+    "idx": 0,
+    "title": "扫码下载库街区APP",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "战双",
+    "src": "mainModules",
+    "idx": 0,
+    "title": "图鉴",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "战双",
+    "src": "mainModules",
+    "idx": 1,
+    "title": "热门资讯",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "战双",
+    "src": "mainModules",
+    "idx": 2,
+    "title": "纷争战区",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "战双",
+    "src": "mainModules",
+    "idx": 3,
+    "title": "游戏攻略",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "战双",
+    "src": "mainModules",
+    "idx": 4,
+    "title": "剧情回顾",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  },
+  {
+    "game": "战双",
+    "src": "mainModules",
+    "idx": 5,
+    "title": "主题影音",
+    "entryId": null,
+    "hasCountDown": false,
+    "range": null,
+    "linkType": null,
+    "linkUrl": null
+  }
+]

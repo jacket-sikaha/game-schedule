@@ -1,0 +1,174 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//game-events-calendar//iCal Feasibility Prototype//CN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:游戏活动日历
+X-WR-TIMEZONE:Asia/Shanghai
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:03af4a44-10@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20260929T080000Z
+DTEND:20261019T195900Z
+SUMMARY:[明日方舟] 二、“资源收集”关卡限时全天开放
+ATTACH;FMTTYPE=image/jpeg:https://web.hycdn.cn/announce/images/20260923/265
+ 179c2651b934cd7d4c952c93c4c49.JPG
+IMAGE;VALUE=URI;DISPLAY=BADGE:https://web.hycdn.cn/announce/images/20260923
+ /265179c2651b934cd7d4c952c93c4c49.JPG
+CATEGORIES:明日方舟
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:5a666f10-10@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20260922T200000Z
+DTEND:20260929T195900Z
+SUMMARY:[明日方舟] 三、锦枫映月签到活动开启
+ATTACH;FMTTYPE=image/jpeg:https://web.hycdn.cn/announce/images/20260911/138
+ 2a24d40432b71eba0f17bc571aab4.jpg
+IMAGE;VALUE=URI;DISPLAY=BADGE:https://web.hycdn.cn/announce/images/20260911
+ /1382a24d40432b71eba0f17bc571aab4.jpg
+CATEGORIES:明日方舟
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:994a25d1-9@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20260923T200000Z
+DTEND:20261008T055900Z
+SUMMARY:[蔚蓝档案] 【预告】限时活动：夏日天空的约定
+DESCRIPTION:详情：https://bluearchive-cn.com/news/1962
+URL:https://bluearchive-cn.com/news/1962
+ATTACH;FMTTYPE=image/png:https://webcnstatic.yostar.net/ba_cn_web/prod/uplo
+ ad/news/Ic1M6quR.png
+IMAGE;VALUE=URI;DISPLAY=BADGE:https://webcnstatic.yostar.net/ba_cn_web/prod
+ /upload/news/Ic1M6quR.png
+CATEGORIES:蔚蓝档案
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:88458de0-9@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20260923T200000Z
+DTEND:20270610T055900Z
+SUMMARY:[蔚蓝档案] 【预告】3★自选招募即将开启！
+DESCRIPTION:详情：https://bluearchive-cn.com/news/1943
+URL:https://bluearchive-cn.com/news/1943
+ATTACH;FMTTYPE=image/png:https://webcnstatic.yostar.net/ba_cn_web/prod/uplo
+ ad/news/tNYKZEKc.png
+IMAGE;VALUE=URI;DISPLAY=BADGE:https://webcnstatic.yostar.net/ba_cn_web/prod
+ /upload/news/tNYKZEKc.png
+CATEGORIES:蔚蓝档案
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:504dd779-22@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20261014T200000Z
+DTEND:20261021T195900Z
+SUMMARY:[鸣潮] 回音盈域
+ATTACH;FMTTYPE=image/jpeg:https://prod-alicdn-community.kurobbs.com/forum/4
+ a0da9e2c8134304980f2403d33c083320260929.jpg
+IMAGE;VALUE=URI;DISPLAY=BADGE:https://prod-alicdn-community.kurobbs.com/for
+ um/4a0da9e2c8134304980f2403d33c083320260929.jpg
+CATEGORIES:鸣潮
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d7ea0172-22@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20260930T030000Z
+DTEND:20261111T035900Z
+SUMMARY:[鸣潮] 团团勇者大乱斗
+DESCRIPTION:详情：https://www.kurobbs.com/mc/post/1498788444415365120
+URL:https://www.kurobbs.com/mc/post/1498788444415365120
+CATEGORIES:鸣潮
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:067b57ec-9@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20260930T110000Z
+DTEND:20261015T055900Z
+SUMMARY:[FGO] 【限时】「唠唠叨叨新选组 THE END 近藤勇推荐
+ 召唤」！
+DESCRIPTION:详情：https://game.bilibili.com/fgo/news.html#!news/1/1/1840
+ 6
+URL:https://game.bilibili.com/fgo/news.html#!news/1/1/18406
+ATTACH;FMTTYPE=image/png:https://i0.hdslb.com/bfs/game/ff278b95ddb085a9ff4e
+ 2f54f1f0de1272effd31.png
+IMAGE;VALUE=URI;DISPLAY=BADGE:https://i0.hdslb.com/bfs/game/ff278b95ddb085a
+ 9ff4e2f54f1f0de1272effd31.png
+CATEGORIES:FGO
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:d3d6af13-8@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20260922T040000Z
+DTEND:20261011T195959Z
+SUMMARY:[原神] 「银翎溯月，玄鸟结璘」活动：参与获取活
+ 动专属武器「单手剑·银釭」
+ATTACH;FMTTYPE=image/jpeg:https://sdk-webstatic.mihoyo.com/upload/ann/2026/
+ 09/11/6788dbf108de54a3c269127dbd14cef1_3820972780871244293_transformed.jpg
+IMAGE;VALUE=URI;DISPLAY=BADGE:https://sdk-webstatic.mihoyo.com/upload/ann/2
+ 026/09/11/6788dbf108de54a3c269127dbd14cef1_3820972780871244293_transformed
+ .jpg
+CATEGORIES:原神
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:e5c1051a-8@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20260810T040000Z
+DTEND:20270713T230000Z
+SUMMARY:[原神] 「狩猎开始！」活动：推进魔神任务「无神
+ 怜爱的雪国」，邀请「疾掠弋缇·阿罗夏(雷)」
+CATEGORIES:原神
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:79cc3fcf-10@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20261001T040000Z
+DTEND:20261008T040000Z
+SUMMARY:[对抗样本] 活动A\, 第一弹\; 第二弹\\ 和\n换行
+CATEGORIES:对抗样本
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7acc4162-10@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20261001T040000Z
+DTEND:20261008T040000Z
+SUMMARY:[对抗样本] 【超长标题压力测试】此为用于验证 UTF
+ -8 折行是否会在多字节字符中间切断的填充文本。此为
+ 用于验证 UTF-8 折行是否会在多字节字符中间切断的填充
+ 文本。此为用于验证 UTF-8 折行是否会在多字节字符中间
+ 切断的填充文本。此为用于验证 UTF-8 折行是否会在多字
+ 节字符中间切断的填充文本。此为用于验证 UTF-8 折行是
+ 否会在多字节字符中间切断的填充文本。
+CATEGORIES:对抗样本
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:7bcc42f5-10@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20261001T040000Z
+DTEND:20261001T050000Z
+SUMMARY:[对抗样本] 没有结束时间的活动
+CATEGORIES:对抗样本
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:74cc37f0-10@game-events-calendar
+DTSTAMP:20261005T020000Z
+DTSTART:20261001T040000Z
+DTEND:20261001T050000Z
+SUMMARY:[对抗样本] 结束时间格式非法
+CATEGORIES:对抗样本
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
