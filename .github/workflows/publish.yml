@@ -48,20 +48,9 @@ jobs:
 
       # Run a build step here if your project requires
       - name: Cloudflare Pages GitHub Action
-        uses: kitabisa/cloudflare-pages-action@v2
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: gameevent-frontend
-          directory: ./apps/web-frontend/dist
-
-          # Optional: Enable this if you want to have GitHub Deployments triggered
-          # 该token每个工作流作业开始时，GitHub 会自动创建唯一的 GITHUB_TOKEN 机密以在工作流中使用，直接使用无需额外设置机密变量
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          # Optional: Switch what branch you are publishing to.
-          # By default this will be the branch which triggered this workflow
-          branch: main
-          # Optional: Change the working directory
-          # workingDirectory: ./dist
-          # Optional: Change the Wrangler version, allows you to point to a specific version or a tag such as `beta`
-          # wranglerVersion: '3'
+          command: pages deploy ./apps/web-frontend/dist --project-name=gameevent-frontend
+          quiet: false
