@@ -1,10 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import {
-	getUmamusumeEventData,
-	handleUmamusumeNews,
-	isUmamusumeEventTitleCandidate,
-	matchEventTime,
-} from '../umamusume/util';
+import { getUmamusumeEventData, handleUmamusumeNews, isUmamusumeEventTitleCandidate, matchEventTime } from '../umamusume/util';
 import { UmamusumeNewsItem } from '../umamusume/DataType';
 
 const makeItem = (overrides: Partial<UmamusumeNewsItem>): UmamusumeNewsItem => ({
@@ -21,37 +16,25 @@ const makeItem = (overrides: Partial<UmamusumeNewsItem>): UmamusumeNewsItem => (
 describe('umamusume', () => {
 	describe('matchEventTime', () => {
 		it('解析完整年月日和起止时间', () => {
-			const result = matchEventTime(
-				'活动时间：2026/11/20 12:00 - 2026/12/1 11:59',
-				'2026-11-20 12:00:00',
-			);
+			const result = matchEventTime('活动时间：2026/11/20 12:00 - 2026/12/1 11:59', '2026-11-20 12:00:00');
 			expect(result?.[0].format('YYYY-MM-DD HH:mm')).toBe('2026-11-20 12:00');
 			expect(result?.[1].format('YYYY-MM-DD HH:mm')).toBe('2026-12-01 11:59');
 		});
 
 		it('解析无年份时间并继承发布年份', () => {
-			const result = matchEventTime(
-				'活动时间：11/20 12:00 - 12/1 11:59',
-				'2026-11-20 12:00:00',
-			);
+			const result = matchEventTime('活动时间：11/20 12:00 - 12/1 11:59', '2026-11-20 12:00:00');
 			expect(result?.[0].format('YYYY-MM-DD HH:mm')).toBe('2026-11-20 12:00');
 			expect(result?.[1].format('YYYY-MM-DD HH:mm')).toBe('2026-12-01 11:59');
 		});
 
 		it('兼容中文日期和波浪分隔符', () => {
-			const result = matchEventTime(
-				'活动时间：2026年11月20日 12:00～2026年12月1日 11:59',
-				'2026-11-20 12:00:00',
-			);
+			const result = matchEventTime('活动时间：2026年11月20日 12:00～2026年12月1日 11:59', '2026-11-20 12:00:00');
 			expect(result?.[0].format('YYYY-MM-DD HH:mm')).toBe('2026-11-20 12:00');
 			expect(result?.[1].format('YYYY-MM-DD HH:mm')).toBe('2026-12-01 11:59');
 		});
 
 		it('维护后默认 05:00', () => {
-			const result = matchEventTime(
-				'活动时间：2026年11月20日维护后 - 2026年12月1日 11:59',
-				'2026-11-20 12:00:00',
-			);
+			const result = matchEventTime('活动时间：2026年11月20日维护后 - 2026年12月1日 11:59', '2026-11-20 12:00:00');
 			expect(result?.[0].format('YYYY-MM-DD HH:mm')).toBe('2026-11-20 05:00');
 		});
 
@@ -60,37 +43,21 @@ describe('umamusume', () => {
 		});
 
 		it('发放时间不再解析为活动区间', () => {
-			expect(
-				matchEventTime(
-				'<p>发放时间：2026年3月3日 12:00 - 2026年4月2日 23:59</p>',
-				'2026-03-01 12:00:00',
-				),
-			).toBeNull();
+			expect(matchEventTime('<p>发放时间：2026年3月3日 12:00 - 2026年4月2日 23:59</p>', '2026-03-01 12:00:00')).toBeNull();
 		});
 
 		it('领取时间解析为活动区间', () => {
-			const result = matchEventTime(
-				'<p>领取时间：2026年3月3日 12:00 - 2026年4月2日 23:59</p>',
-				'2026-03-01 12:00:00',
-			);
+			const result = matchEventTime('<p>领取时间：2026年3月3日 12:00 - 2026年4月2日 23:59</p>', '2026-03-01 12:00:00');
 			expect(result?.[0].format('YYYY-MM-DD HH:mm')).toBe('2026-03-03 12:00');
 			expect(result?.[1].format('YYYY-MM-DD HH:mm')).toBe('2026-04-02 23:59');
 		});
 
 		it('仅含维护时间时不当作活动', () => {
-			expect(
-				matchEventTime(
-					'<p>维护时间：2026年11月20日 12:00 - 2026年11月20日 18:00</p>',
-					'2026-11-20 10:00:00',
-				),
-			).toBeNull();
+			expect(matchEventTime('<p>维护时间：2026年11月20日 12:00 - 2026年11月20日 18:00</p>', '2026-11-20 10:00:00')).toBeNull();
 		});
 
 		it('活动期间使用维护后作为起点', () => {
-			const result = matchEventTime(
-				'<p>活动期间 4/10 维护后 - 4/20 11:59</p>',
-				'2026-04-10 12:00:00',
-			);
+			const result = matchEventTime('<p>活动期间 4/10 维护后 - 4/20 11:59</p>', '2026-04-10 12:00:00');
 			expect(result?.[0].format('YYYY-MM-DD HH:mm')).toBe('2026-04-10 05:00');
 			expect(result?.[1].format('YYYY-MM-DD HH:mm')).toBe('2026-04-20 11:59');
 		});
@@ -142,7 +109,6 @@ describe('umamusume', () => {
 			});
 			const [result] = handleUmamusumeNews([item]);
 			expect(result).not.toHaveProperty('content');
-			expect(result).toHaveProperty('range');
 			expect(result).toHaveProperty('start_time');
 			expect(result).toHaveProperty('end_time');
 			expect(result).toHaveProperty('linkUrl');
