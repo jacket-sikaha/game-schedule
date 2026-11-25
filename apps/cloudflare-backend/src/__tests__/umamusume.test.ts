@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { getUmamusumeEventData, handleUmamusumeNews, isUmamusumeEventTitleCandidate, matchEventTime } from '../umamusume/util';
 import { UmamusumeNewsItem } from '../umamusume/DataType';
 
@@ -14,6 +14,10 @@ const makeItem = (overrides: Partial<UmamusumeNewsItem>): UmamusumeNewsItem => (
 });
 
 describe('umamusume', () => {
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+
 	describe('matchEventTime', () => {
 		it('解析完整年月日和起止时间', () => {
 			const result = matchEventTime('活动时间：2026/11/20 12:00 - 2026/12/1 11:59', '2026-11-20 12:00:00');
@@ -178,7 +182,38 @@ describe('umamusume', () => {
 			const detailCount = urls.filter((url) => url === 'https://api.example.com/api/umamusume').length;
 			expect(detailCount).toBeLessThanOrEqual(20);
 			expect(detailCount).toBeGreaterThan(0);
-			vi.unstubAllGlobals();
+		});
+
+		it('详情代理返回 504 时中止整批请求', async () => {
+			vi.stubGlobal(
+				'fetch',
+				vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+					if (init?.method === 'POST') {
+						return {
+							ok: false,
+							status: 504,
+							json: async () => ({
+								error: '活动详情获取超时，请稍后重试',
+								code: 'UPSTREAM_TIMEOUT',
+							}),
+						} as Response;
+					}
+
+					return {
+						ok: true,
+						json: async () => ({
+							code: 0,
+							totalNum: 1,
+							pageNo: 1,
+							data: [makeItem({ id: 1, title: '活动 A 开放！' })],
+						}),
+					} as Response;
+				}),
+			);
+
+			await expect(
+				getUmamusumeEventData('https://cron.example.com/api/umamusume'),
+			).rejects.toMatchObject({ status: 504 });
 		});
 	});
 });

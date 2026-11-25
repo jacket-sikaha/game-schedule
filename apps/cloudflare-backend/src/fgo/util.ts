@@ -42,6 +42,11 @@ const getFGOEventDetail = async (url: string, linkUrl: string, activityId: numbe
 				'Content-Type': 'application/json',
 			},
 		});
+		if (!res.ok) {
+			const error = new Error(`FGO detail request failed: ${res.status}`) as Error & { status?: number };
+			error.status = res.status;
+			throw error;
+		}
 		const data = ((await res.json()) as { data: FGOData }).data;
 		const temp = html2Str(data.content).match(/[0-9]{4}年[0-9]{1,2}月[0-9]{1,2}日.+?[～~].+?为止/gm);
 		const banner = getImgBanner(data.content);
@@ -64,7 +69,8 @@ const getFGOEventDetail = async (url: string, linkUrl: string, activityId: numbe
 			banner,
 			linkUrl,
 		};
-	} catch (error) {
+	} catch (error: any) {
+		if (error?.status === 504) throw error;
 		return null;
 	}
 };

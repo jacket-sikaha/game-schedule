@@ -77,7 +77,7 @@ router
 			const data = await getFGOEventWithDetailTime(env.VITE_FGO_PROXY_API);
 			return { code: 200, data };
 		} catch (error: any) {
-			throw new StatusError(500, error.message);
+			throw new StatusError(typeof error?.status === 'number' ? error.status : 500, error.message);
 		}
 	})
 
@@ -226,7 +226,7 @@ router
 			};
 		} catch (error: any) {
 			console.log('error:', error);
-			throw new StatusError(500, error.message);
+			throw new StatusError(typeof error?.status === 'number' ? error.status : 500, error.message);
 		}
 	})
 

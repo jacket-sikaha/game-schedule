@@ -95,6 +95,8 @@ describe('fgo/util', () => {
 
       // 第二次 fetch：活动详情（POST）
       mockFetch.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
         json: () => Promise.resolve({
           data: {
             id: 12345,
@@ -116,6 +118,8 @@ describe('fgo/util', () => {
 
     it('过滤掉"维护公告"类活动', async () => {
       mockFetch.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
         json: () => Promise.resolve({
           data: [
             { id: 1, title: '维护公告：服务器升级', content: '' },
@@ -145,6 +149,8 @@ describe('fgo/util', () => {
       })
 
       mockFetch.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
         json: () => Promise.resolve({
           data: {
             id: 999,
@@ -156,6 +162,28 @@ describe('fgo/util', () => {
 
       const result = await getFGOEventWithDetailTime('https://cron.example.com/api/fgo')
       expect(result).toHaveLength(0) // 无有效时间 → 被过滤
+    })
+
+    it('详情代理返回 504 时中止整批请求', async () => {
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve({
+          data: [
+            { id: 1, title: 'FGO限时活动', content: '' },
+          ],
+        }),
+      })
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 504,
+        json: () => Promise.resolve({
+          error: '活动详情获取超时，请稍后重试',
+          code: 'UPSTREAM_TIMEOUT',
+        }),
+      })
+
+      await expect(
+        getFGOEventWithDetailTime('https://cron.example.com/api/fgo'),
+      ).rejects.toMatchObject({ status: 504 })
     })
   })
 })

@@ -101,7 +101,13 @@ const fetchDetail = async (url: string, id: number) => {
 		body: JSON.stringify({ activityId: id }),
 		headers: { 'Content-Type': 'application/json' },
 	});
-	if (!res.ok) throw new Error(`Umamusume detail request failed: ${res.status}`);
+	if (!res.ok) {
+		const error = new Error(
+			`Umamusume detail request failed: ${res.status}`,
+		) as Error & { status?: number };
+		error.status = res.status;
+		throw error;
+	}
 	const json = (await res.json()) as UmamusumeNewsDetailResponse;
 	if (json.code !== 0) throw new Error(`Umamusume detail api error: ${json.code}`);
 	return json.data;

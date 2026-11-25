@@ -1,6 +1,7 @@
 import EventCalendar from '@/components/EventCalendar';
 import type { CalendarActivity } from '@/components/EventCalendar/CalendarType';
 import Loading from '@/components/Loading';
+import RequestError from '@/components/RequestError';
 import { BACKEND_URL } from '@/services/note';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -9,9 +10,10 @@ import { useQuery } from 'react-query';
 
 function FGO() {
   const [eventData, setEventData] = useState<CalendarActivity[]>();
-  const { isFetching } = useQuery({
+  const { isFetching, isError, refetch } = useQuery({
     queryKey: ['fgo'],
-    queryFn: () => axios(`${BACKEND_URL}/fgo`),
+    queryFn: () => axios(`${BACKEND_URL}/fgo`, { timeout: 12000 }),
+    retry: false,
     onSuccess(data: any) {
       setEventData(
         data?.data?.data
@@ -38,7 +40,9 @@ function FGO() {
   // console.log("eventData", eventData);
   return (
     <>
-      {isFetching ? (
+      {isError ? (
+        <RequestError onRetry={() => void refetch()} />
+      ) : isFetching ? (
         <Loading />
       ) : (
         <EventCalendar
