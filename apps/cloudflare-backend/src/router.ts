@@ -219,7 +219,6 @@ router
 	.get('/umamusume', async (_, env, ctx): Promise<CalendarActivityResult> => {
 		try {
 			const data = await getUmamusumeEventData(env.VITE_UMAMUSUME_API);
-			console.log('data:', data);
 			return {
 				code: 200,
 				data,
