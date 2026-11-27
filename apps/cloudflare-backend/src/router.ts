@@ -231,7 +231,8 @@ router
 	})
 
 	.get('/ics/:game', async (request, env) => {
-		const game = request.params?.game;
+		const pathMatch = new URL(request.url).pathname.match(/^\/ics\/([^/]+)$/);
+		const game = pathMatch ? decodeURIComponent(pathMatch[1]) : request.params?.game;
 		if (!game || !isIcsGameKey(game)) {
 			throw new StatusError(404, `Unknown game: ${game ?? ''}`);
 		}
