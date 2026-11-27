@@ -10,12 +10,17 @@ const backendUrl = (process.env.ICS_BACKEND_URL || 'https://gebc.lee-sikaha.clou
 	'',
 );
 const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
-const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+const apiToken = process.env.ICS_CLOUDFLARE_API_TOKEN || process.env.CLOUDFLARE_API_TOKEN;
+const apiTokenEnvName = process.env.ICS_CLOUDFLARE_API_TOKEN
+	? 'ICS_CLOUDFLARE_API_TOKEN'
+	: 'CLOUDFLARE_API_TOKEN';
 const namespaceId = process.env.ICS_KV_NAMESPACE_ID;
-const requestedConcurrency = Number(process.env.ICS_REFRESH_CONCURRENCY || 3);
+const requestedConcurrency = Number(process.env.ICS_REFRESH_CONCURRENCY || 2);
 const concurrency = Number.isFinite(requestedConcurrency)
 	? Math.max(1, Math.floor(requestedConcurrency))
-	: 3;
+	: 2;
+const upstreamTimeoutMs = Number(process.env.ICS_UPSTREAM_TIMEOUT_MS || 45_000);
+const upstreamRetries = Number(process.env.ICS_UPSTREAM_RETRIES || 1);
 
 const requireEnv = (name, value) => {
 	if (!value) throw new Error(`Missing required environment variable: ${name}`);
@@ -24,14 +29,34 @@ const requireEnv = (name, value) => {
 
 const fetchJson = async (gameKey) => {
 	const url = `${backendUrl}/${encodeURIComponent(gameKey)}`;
-	const response = await fetch(url, {
-		headers: { Accept: 'application/json' },
-		signal: AbortSignal.timeout(30_000),
-	});
-	if (!response.ok) {
-		throw new Error(`GET ${url} failed: ${response.status}`);
+	const attempts = Math.max(1, Math.floor(upstreamRetries) + 1);
+	let lastError;
+
+	for (let attempt = 1; attempt <= attempts; attempt += 1) {
+		try {
+			const response = await fetch(url, {
+				headers: { Accept: 'application/json' },
+				signal: AbortSignal.timeout(upstreamTimeoutMs),
+			});
+			if (!response.ok) {
+				const error = new Error(`GET ${url} failed: ${response.status}`);
+				error.status = response.status;
+				error.retryable = response.status === 429 || response.status >= 500;
+				throw error;
+			}
+			return await response.json();
+		} catch (error) {
+			lastError = error;
+			const retryable =
+				error?.retryable === true ||
+				error?.name === 'TimeoutError' ||
+				error?.name === 'AbortError';
+			if (attempt >= attempts || !retryable) throw error;
+			await new Promise((resolve) => setTimeout(resolve, 2_000 * attempt));
+		}
 	}
-	return response.json();
+
+	throw lastError;
 };
 
 const writeKv = async (key, value) => {
@@ -75,7 +100,7 @@ const mapWithConcurrency = async (items, limit, mapper) => {
 
 const main = async () => {
 	requireEnv('CLOUDFLARE_ACCOUNT_ID', accountId);
-	requireEnv('CLOUDFLARE_API_TOKEN', apiToken);
+	requireEnv(apiTokenEnvName, apiToken);
 	requireEnv('ICS_KV_NAMESPACE_ID', namespaceId);
 
 	const results = await mapWithConcurrency(ICS_GAME_KEYS, concurrency, async (gameKey) => {

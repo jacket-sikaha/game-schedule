@@ -1,5 +1,4 @@
 export type IcsGameKey =
-	| 'pcr'
 	| 'genshin'
 	| 'starrail'
 	| 'zzz'

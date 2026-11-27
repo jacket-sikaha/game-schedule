@@ -54,8 +54,6 @@ const fetchJson = async (url: string, init?: RequestInit): Promise<any> => {
 
 const loadGamePayload = async (gameKey: IcsGameKey, env: IcsEnv): Promise<unknown> => {
 	switch (gameKey) {
-		case 'pcr':
-			return fetchJson(env.VITE_PCR_API);
 		case 'genshin': {
 			const data = await fetchJson(env.VITE_GENSHIN_API);
 			return data.data?.list.find((item: { type_id: number }) => item.type_id === 1);

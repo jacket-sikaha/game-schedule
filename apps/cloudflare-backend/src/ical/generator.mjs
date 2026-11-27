@@ -1,5 +1,4 @@
 export const ICS_GAME_KEYS = [
-	'pcr',
 	'genshin',
 	'starrail',
 	'zzz',
@@ -26,7 +25,6 @@ const PRODID = '-//game-events-calendar//iCal//CN';
 const UID_DOMAIN = 'game-events-calendar';
 
 const GAME_LABELS = {
-	pcr: '公主连结',
 	genshin: '原神',
 	starrail: '星穹铁道',
 	zzz: '绝区零',

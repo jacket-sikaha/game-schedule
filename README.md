@@ -184,7 +184,6 @@ interface CalendarActivity {
 Worker 提供单游戏 `.ics` 订阅入口：
 
 ```text
-GET /ics/pcr
 GET /ics/genshin
 GET /ics/starrail
 GET /ics/zzz
@@ -214,7 +213,8 @@ GitHub Actions 的 [refresh-ical.yml](.github/workflows/refresh-ical.yml) 每 3 
 | 名称 | 类型 | 用途 |
 | --- | --- | --- |
 | `CLOUDFLARE_ACCOUNT_ID` | Secret | Cloudflare 账户 ID |
-| `CLOUDFLARE_API_TOKEN` | Secret | 需要 Workers KV Storage Edit 权限 |
+| `ICS_CLOUDFLARE_API_TOKEN` | Secret | 推荐使用独立的 KV 写入 token，需要 Workers KV Storage Edit 权限 |
+| `CLOUDFLARE_API_TOKEN` | Secret | 旧 token 兼容兜底；如果使用它，也必须具备 Workers KV Storage Edit 权限 |
 | `ICS_KV_NAMESPACE_ID` | Secret | `ICS_KV` 的 namespace ID |
 | `ICS_BACKEND_URL` | Repository variable | Worker 入口地址；为空时使用代码中的默认地址 |
 

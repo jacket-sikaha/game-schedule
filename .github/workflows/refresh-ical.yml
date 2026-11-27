@@ -20,10 +20,15 @@ jobs:
     timeout-minutes: 20
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      # Preferred: a dedicated token with Workers KV Storage: Edit.
+      # The old Pages token is kept as a fallback while migrating.
+      ICS_CLOUDFLARE_API_TOKEN: ${{ secrets.ICS_CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       ICS_KV_NAMESPACE_ID: ${{ secrets.ICS_KV_NAMESPACE_ID }}
       ICS_BACKEND_URL: ${{ vars.ICS_BACKEND_URL }}
-      ICS_REFRESH_CONCURRENCY: 3
+      ICS_REFRESH_CONCURRENCY: 2
+      ICS_UPSTREAM_TIMEOUT_MS: 45000
+      ICS_UPSTREAM_RETRIES: 1
 
     steps:
       - name: Checkout
