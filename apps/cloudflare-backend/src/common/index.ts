@@ -56,6 +56,10 @@ export const getShanghaiDate = (date?: dayjs.ConfigType) => dayjs(date).tz('Asia
 
 export const checkCacheResults: RequestHandler<IRequest, CFArgs> = async (request: IRequest, env, ctx) => {
 	const path = new URL(request.url).pathname.slice(1);
+	// iCal responses are cached by Workers Cache and backed by KV, not Redis.
+	if (path === 'ics' || path.startsWith('ics/')) {
+		return;
+	}
 	try {
 		// 添加Redis操作超时
 		const res = await Promise.race([
@@ -106,6 +110,17 @@ export const logger: ResponseHandler = (response, request) => {
 
 export const destroyRedisClient: ResponseHandler<Response, IRequest> = async (res, req) => {
 	const path = new URL(req.url).pathname.slice(1);
+	if (path === 'ics' || path.startsWith('ics/')) {
+		RedisInstance.destroyed();
+		return;
+	}
+	const contentType = res.headers.get('content-type') ?? '';
+	// Redis middleware stores JSON only. Text, calendar, and binary responses must
+	// not enter the JSON cache path or the finally handler will throw.
+	if (!contentType.includes('application/json')) {
+		RedisInstance.destroyed();
+		return;
+	}
 	const data = (await res.clone().json()) as CalendarActivityResult;
 	console.log('req._cashed:', req._cashed);
 	// 缓存未命中且接口返回正常，直接设置缓存

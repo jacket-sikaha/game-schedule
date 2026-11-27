@@ -1,0 +1,48 @@
+name: Refresh iCal Snapshots
+
+on:
+  schedule:
+    # GitHub Actions uses UTC. The cadence is every 3 hours.
+    # 避开整点，UTC 每 3 小时运行一次
+    - cron: '17 */3 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: refresh-ical-snapshots
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      ICS_KV_NAMESPACE_ID: ${{ secrets.ICS_KV_NAMESPACE_ID }}
+      ICS_BACKEND_URL: ${{ vars.ICS_BACKEND_URL }}
+      ICS_REFRESH_CONCURRENCY: 3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: |
+            **/pnpm-lock.yaml
+            package.json
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate and publish iCal snapshots
+        run: pnpm --filter @game-calendar/cloudflare-backend ics:refresh

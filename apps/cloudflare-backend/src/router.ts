@@ -12,6 +12,7 @@ import { getActivities } from './endfield';
 import { getNteEventData } from './nte/util';
 import { getZzzEventData } from './zzz/util';
 import { getUmamusumeEventData } from './umamusume/util';
+import { getIcsResponse, IcsEnv, isIcsGameKey } from './ical';
 
 // create the CORS pair
 const { preflight, corsify } = cors({
@@ -226,6 +227,20 @@ router
 		} catch (error: any) {
 			console.log('error:', error);
 			throw new StatusError(typeof error?.status === 'number' ? error.status : 500, error.message);
+		}
+	})
+
+	.get('/ics/:game', async (request, env) => {
+		const game = request.params?.game;
+		if (!game || !isIcsGameKey(game)) {
+			throw new StatusError(404, `Unknown game: ${game ?? ''}`);
+		}
+
+		try {
+			return await getIcsResponse(game, request, env as IcsEnv);
+		} catch (error: any) {
+			const status = typeof error?.status === 'number' ? error.status : 500;
+			throw new StatusError(status, error?.message ?? 'iCal request failed');
 		}
 	})
 

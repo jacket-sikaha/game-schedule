@@ -6,6 +6,7 @@
 		"deploy": "node scripts/wrangler.mjs deploy",
 		"dev": "node scripts/wrangler.mjs dev --ip 0.0.0.0",
 		"types": "node scripts/wrangler.mjs types",
+		"ics:refresh": "node scripts/generate-ics.mjs",
 		"test": "vitest run",
 		"test:watch": "vitest --ui",
 		"build": "node scripts/wrangler.mjs deploy --dry-run",

@@ -46,6 +46,14 @@ VITE_UMAMUSUME_API = "https://cron.sikaha.dpdns.org/api/umamusume"
 
 REDIS_PASSWD = 'xxxxxxxxxxxxxx'
 
+# iCal snapshots. Create the namespace with:
+#   wrangler kv namespace create ICS_KV
+# Replace the id below with the returned namespace id and uncomment the binding
+# before deploying the /ics/:game routes.
+[[kv_namespaces]]
+binding = "ICS_KV"
+id = "ba0ed2c5af374b6c8d7cc148ab5cb3a4"
+
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/workers/platform/environment-variables

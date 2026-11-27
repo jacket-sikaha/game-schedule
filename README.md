@@ -179,6 +179,54 @@ interface CalendarActivity {
 - 页面显示“活动数据获取超时，请稍后重试”和手动“重新加载”按钮。
 - 这是目前面对 Vercel 免费版执行时长限制的折中方案：失败快速返回，由用户决定是否重试。
 
+## iCal 订阅
+
+Worker 提供单游戏 `.ics` 订阅入口：
+
+```text
+GET /ics/pcr
+GET /ics/genshin
+GET /ics/starrail
+GET /ics/zzz
+GET /ics/fgo
+GET /ics/ak
+GET /ics/mc
+GET /ics/pns
+GET /ics/ba
+GET /ics/ba-jp
+GET /ics/nikke
+GET /ics/cbjq
+GET /ics/endfield
+GET /ics/nte
+GET /ics/umamusume
+```
+
+每个入口只返回对应游戏的日历，不维护总日历。响应类型为 `text/calendar; charset=utf-8`，并通过 Workers Cache 提供 ETag、缓存头；KV 快照带有 `generatedAt` metadata 时还会返回 Last-Modified。
+
+快照保存在 KV：
+
+```text
+ics:v1:<game>
+```
+
+GitHub Actions 的 [refresh-ical.yml](.github/workflows/refresh-ical.yml) 每 3 小时运行一次，生成脚本位于 `apps/cloudflare-backend/scripts/generate-ics.mjs`。需要在 GitHub 仓库中配置：
+
+| 名称 | 类型 | 用途 |
+| --- | --- | --- |
+| `CLOUDFLARE_ACCOUNT_ID` | Secret | Cloudflare 账户 ID |
+| `CLOUDFLARE_API_TOKEN` | Secret | 需要 Workers KV Storage Edit 权限 |
+| `ICS_KV_NAMESPACE_ID` | Secret | `ICS_KV` 的 namespace ID |
+| `ICS_BACKEND_URL` | Repository variable | Worker 入口地址；为空时使用代码中的默认地址 |
+
+手动运行方式：
+
+```bash
+cd apps/cloudflare-backend
+pnpm ics:refresh
+```
+
+如果 KV 未命中，Worker 仍会现场生成并写回，作为 GitHub Actions 失败时的兜底。
+
 ## 安装与开发
 
 ### 环境要求
